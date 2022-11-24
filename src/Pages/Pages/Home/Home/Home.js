@@ -1,5 +1,5 @@
 import React from 'react';
-import Announcement from '../../Announcement/Announcement';
+import Announcement from '../Announcement/Announcement';
 import Activities from '../Activities/Activities';
 import Banner from '../Banner/Banner';
 import Carousel from '../Carousel/Carousel';

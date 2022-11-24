@@ -1,27 +1,39 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const Categories = () => {
+
+  const {data : categories =[] , refetch} = useQuery({
+    queryKey : ["categories"],
+    queryFn : ()=>fetch("http://localhost:5000/categories")
+    .then(res => res.json())
+    .then(data =>{
+      // console.log(data)
+      return data
+    })
+})
+
     return (
         <section className='my-16'>
             <div className=''>
-                <h2 className="font-bold text-center text-primary text-3xl">Categories</h2>
+                <h2 className="font-bold text-center text-primary text-3xl">Most Sale Categories</h2>
       <p className="text-center my-3">Our all Mobile categories </p>
             </div>
-            <div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6 w-full">
-  <div
-	   class="relative p-4 w-full bg-white rounded-lg overflow-hidden hover:shadow flex flex-col justify-center items-center"
-	 
-	   >
-	<div class="w-16 h-16 bg-gray-100 rounded-lg"></div>
-
-	<h2 class="mt-2 text-gray-800 text-sm font-semibold line-clamp-1">
-	  Category 1
-	</h2>
-  </div>
-	
-</div>
-            </div>
+           
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 justify-center">
+        {
+          categories && categories.map(category => <div
+            key={category._id} 
+          className="relative p-4 w-full bg-white rounded-lg overflow-hidden hover:shadow flex flex-col justify-center items-center">
+            <img src={category?.brandLogo} className="rounded-md" alt="" />
+  
+          <h2 className="mt-2 text-gray-800 text-sm font-semibold line-clamp-1">
+            {category?.categoryName}
+          </h2>
+        </div> )
+        }
+       
+      </div>
         </section>
     );
 };

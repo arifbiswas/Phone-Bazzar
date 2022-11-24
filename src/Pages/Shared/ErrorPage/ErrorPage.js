@@ -11,11 +11,11 @@ const ErrorPage = () => {
     }
     return (
         <div>
-            <section class="bg-white ">
-    <div class="py-8 px-4 mx-auto max-w-screen-md text-center lg:py-16 lg:px-12">
+            <section className="bg-white ">
+    <div className="py-8 px-4 mx-auto max-w-screen-md text-center lg:py-16 lg:px-12">
         <img src={errorPicture} alt="" />
-        <h1 class="mb-4 text-4xl font-bold tracking-tight leading-none text-gray-900 lg:mb-6 md:text-5xl xl:text-6xl ">{error.statusText} {error.status}</h1>
-        <p class="font-light text-gray-500 md:text-lg xl:text-xl ">Something Wrong</p>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight leading-none text-gray-900 lg:mb-6 md:text-5xl xl:text-6xl ">{error.statusText} {error.status}</h1>
+        <p className="font-light text-gray-500 md:text-lg xl:text-xl ">Something Wrong</p>
         <button className='btn btn-primary my-4' onClick={handleGoBack}>Go back</button>
 
     </div>

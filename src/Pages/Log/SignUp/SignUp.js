@@ -1,21 +1,105 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { FaEnvelope,  FaUnlock, FaUser } from "react-icons/fa";
+import axios from "axios"
+import { AuthContext } from "../../../ContextApi/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 const SignUp = () => {
+  const location = useLocation()
+  const from = location?.state?.from?.pathname || "/";
+  const navigate = useNavigate()
+
+  const {register,handleSubmit,reset} = useForm()
+
+  const googleAuthProvider = new GoogleAuthProvider();
+
+  const {
+    user,
+        loading,
+        createUser,
+        login,
+        loginWithGoogle,
+        logOut,
+         updateUser
+  } = useContext(AuthContext);
+  const handleCreateUser =(data)=>{
+    const displayName = data.displayName;
+    const Photo = data.photofile[0];
+    
+    createUser(data?.email ,data?.password)
+    .then(result =>{
+      const user = result.user;
+      if(user.email){
+        const formData = new FormData()
+        formData.append("image",Photo)
+        axios.post("https://api.imgbb.com/1/upload?key=5b4fcdb13ffc1a8120ad637767dc49e7",formData)
+        .then(res => {
+         if((res.data.data.url)){
+           const updateInfo = {
+             displayName,
+             photoURL : res?.data?.data?.url
+           }
+           handleUpdateUser(updateInfo)
+         }
+        })
+        .catch(e =>{
+         console.log(e);
+         toast.error(e.message)
+        })
+      }
+
+    })
+    .catch(e =>{
+      console.log(e);
+      toast.error(e.message)
+    })
+  }
+
+  const handleUpdateUser = (updateInfo)=>{
+    // console.log(updateInfo);
+   updateUser(updateInfo)
+   .then(() =>{
+     reset()
+     toast.success("SignUp successfully Done")
+    navigate(from,{replace : true})
+   } )
+   .catch(e =>{
+    toast.error(e.message)
+    console.log(e);
+   })
+  }
+
+  const handleGoogleLogin =()=>{
+    loginWithGoogle(googleAuthProvider)
+    .then(result =>{
+      const user = result.user;
+      toast.success("SignUp successfully Done")
+      navigate(from,{replace : true})
+      console.log(user);
+    })
+    .catch(e =>{
+      console.log(e);
+      toast.error(e.message)
+    })
+  }
+
   return (
     <div>
-      <div class="bg-gray-800">
-        <div class="p-8 lg:w-1/2 mx-auto">
-          <div class="bg-white rounded-t-lg p-8">
-            <p class="text-center text-sm text-gray-400 font-light">
+      <div className="">
+        <div className="p-8 lg:w-1/2 mx-auto">
+          <div className="bg-white rounded-t-lg p-8">
+            <p className="text-center text-sm text-gray-400 font-light">
               Sign up with
             </p>
             <div>
-              <div class="flex items-center justify-center space-x-4 mt-3">
-                <button class="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+              <div className="flex items-center justify-center space-x-4 mt-3">
+                {/* <button className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-cyan-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
-                    class="w-6 h-6 mr-3"
+                    className="w-6 h-6 mr-3"
                   >
                     <path
                       fill-rule="evenodd"
@@ -23,11 +107,13 @@ const SignUp = () => {
                     ></path>
                   </svg>
                   Github
-                </button>
-                <button class="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-indigo-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                </button> */}
+                <button 
+                onClick={handleGoogleLogin}
+                className="flex items-center py-2 px-4 text-sm uppercase rounded bg-white hover:bg-gray-100 text-cyan-500 border border-transparent hover:border-transparent hover:text-gray-700 shadow-md hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="w-6 h-6 mr-3"
+                    className="w-6 h-6 mr-3"
                     viewBox="0 0 48 48"
                   >
                     <path
@@ -52,95 +138,85 @@ const SignUp = () => {
               </div>
             </div>
           </div>
-          <div class="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
-            <p class="text-center text-sm text-gray-500 font-light">
+          <div className="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
+            <p className="text-center text-sm text-gray-500 font-light">
               {" "}
               Or sign up with credentials{" "}
             </p>
-            <form class="mt-6">
-              <div class="relative">
+            <form 
+            onSubmit={handleSubmit(handleCreateUser)}
+            className="mt-6">
+              <div className="relative">
                 <input
-                  class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                  id="username"
+                {...register("displayName")}
+                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  
+                  type="text"
+                  placeholder="username"
+                />
+                <div className="absolute left-5 inset-y-0 flex items-center">
+                 <FaUser></FaUser>
+                </div>
+              </div>
+              <div className="relative">
+              <input 
+               {...register("photofile")}
+              type="file" accept="image/*" className="file-input  w-full mt-3" />
+                
+              </div>
+              <div className="relative mt-3">
+                <input
+                {...register("email")}
+                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  id="email"
                   type="text"
                   placeholder="Email"
                 />
-                <div class="absolute left-0 inset-y-0 flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 ml-3 text-gray-400 p-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-                  </svg>
+                <div className="absolute left-5 inset-y-0 flex items-center">
+                 <FaEnvelope></FaEnvelope>
                 </div>
               </div>
-              <div class="relative mt-3">
+              <div className="relative mt-3">
                 <input
-                  class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                  id="username"
-                  type="text"
-                  placeholder="Email"
-                />
-                <div class="absolute left-0 inset-y-0 flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 ml-3 text-gray-400 p-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                </div>
-              </div>
-              <div class="relative mt-3">
-                <input
-                  class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                  id="username"
-                  type="text"
+                {...register("password")}
+                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  
+                  type="password"
                   placeholder="Password"
                 />
-                <div class="absolute left-0 inset-y-0 flex items-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-7 w-7 ml-3 text-gray-400 p-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
-                  </svg>
+                <div className="absolute left-5 inset-y-0 flex items-center">
+                  <FaUnlock></FaUnlock>
                 </div>
               </div>
 
-              <p class="mt-4 italic text-gray-500 font-light text-xs">
+              <p className="mt-4 italic text-gray-500 font-light text-xs">
                 Password strength:{" "}
-                <span class="font-bold text-green-400">strong</span>
+                <span className="font-bold text-green-400">strong</span>
               </p>
-              <div class="mt-4 flex items-center text-gray-500">
+              <div className="mt-4 flex items-center text-gray-500">
                 {" "}
                 <input
                   type="checkbox"
                   id="remember"
                   name="remember"
-                  class="mr-2"
+                  className="mr-2"
                 />{" "}
-                <label class="text-sm" for="remember">
+                <label className="text-sm" for="remember">
                   I agree with the{" "}
-                  <a class="text-indigo-400 hover:text-indigo-500">
+                  <a className="text-cyan-400 hover:text-cyan-500">
                     Privacy Policy
                   </a>
                 </label>{" "}
               </div>
-              <div class="flex items-center justify-center mt-8">
+              <div className="flex items-center justify-center mt-8">
                 {" "}
-                <button class="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                <button className="text-white py-2 px-4 uppercase rounded bg-cyan-500 hover:bg-cyan-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                   {" "}
                   Create Account{" "}
                 </button>{" "}
               </div>
             </form>
+            <p className="text-sm text-center mt-12">You have already account <Link className="text-lg text-primary" to="/login">Login</Link></p>
           </div>
         </div>
       </div>
