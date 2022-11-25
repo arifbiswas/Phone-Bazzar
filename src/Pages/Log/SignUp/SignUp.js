@@ -27,7 +27,7 @@ const SignUp = () => {
   const handleCreateUser =(data)=>{
     const displayName = data.displayName;
     const Photo = data.photofile[0];
-    
+
     createUser(data?.email ,data?.password)
     .then(result =>{
       const user = result.user;
@@ -41,7 +41,7 @@ const SignUp = () => {
              displayName,
              photoURL : res?.data?.data?.url
            }
-           handleUpdateUser(updateInfo)
+           handleUpdateUser(updateInfo,data)
          }
         })
         .catch(e =>{
@@ -57,13 +57,29 @@ const SignUp = () => {
     })
   }
 
-  const handleUpdateUser = (updateInfo)=>{
+  const handleUpdateUser = (updateInfo,data)=>{
     // console.log(updateInfo);
    updateUser(updateInfo)
    .then(() =>{
-     reset()
-     toast.success("SignUp successfully Done")
-    navigate(from,{replace : true})
+   
+    // Add db user 
+    const email = data.email ;
+    const role = data.role;
+    const name = data.displayName; 
+    const dbUser = {
+      email,role,name
+    }
+    console.log(dbUser);
+    axios.post("http://localhost:5000/users",dbUser).then(res => {
+      console.log(res);
+      reset()
+      toast.success("SignUp successfully Done")
+     navigate(from,{replace : true})
+    }).catch(e => {
+      console.log(e)
+      toast.error(e.message)
+    })
+
    } )
    .catch(e =>{
     toast.error(e.message)
@@ -74,10 +90,26 @@ const SignUp = () => {
   const handleGoogleLogin =()=>{
     loginWithGoogle(googleAuthProvider)
     .then(result =>{
-      const user = result.user;
-      toast.success("SignUp successfully Done")
-      navigate(from,{replace : true})
-      console.log(user);
+      const currentUser = result.user;
+
+        // added db user 
+      const name = currentUser.displayName; 
+      const email = currentUser.email ;
+      const dbUser = {
+        email,
+        name
+      }
+      console.log(dbUser);
+      axios.post("http://localhost:5000/users",dbUser).then(res => {
+        
+        currentUser.alreadyHave = res.data.message;
+        reset()
+        toast.success("SignUp successfully Done")
+       navigate(from,{replace : true})
+      }).catch(e => {
+        console.log(e)
+        toast.error(e.message)
+      })
     })
     .catch(e =>{
       console.log(e);
@@ -193,6 +225,18 @@ const SignUp = () => {
                 Password strength:{" "}
                 <span className="font-bold text-green-400">strong</span>
               </p>
+
+
+              <div class="flex gap-2 flex-col my-4">
+<label for="default-radio-1" class="ml-2 text-lg font-medium text-gray-900 ">
+    <input {...register("role")} id="default-radio-1" defaultChecked type="radio" value="buyer" class="w-4 h-4bg-gray-100 border-gray-300  " />
+    Buyer</label>
+    
+    <label for="default-radio-2" class="ml-2 text-lg font-medium text-gray-900 ">
+    <input {...register("role")} id="default-radio-2" type="radio" value="seller" class="w-4 h-4bg-gray-100 border-gray-300 " />
+    Seller</label>
+</div>
+
               <div className="mt-4 flex items-center text-gray-500">
                 {" "}
                 <input

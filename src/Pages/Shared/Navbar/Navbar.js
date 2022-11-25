@@ -17,6 +17,7 @@ const Navbar = () => {
   return (
     <header className="shadow-md">
       <nav className=" border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
+        
         <div className="text-primary container flex flex-wrap items-center justify-between mx-auto">
           <Link
             to="/"
@@ -71,7 +72,7 @@ const Navbar = () => {
                     to="/dashboard"
                     className={({ isActive }) =>
                       isActive
-                        ? "block px-4 py-2 text-lg hover:bg-gray-100 text-primary border border-primary "
+                        ? "block px-4 py-2 text-lg bg-gray-100 text-white   lg:text-primary border border-primary "
                         : "block px-4 py-2 text-lg text-gray-700 hover:bg-gray-100 "
                     }
                   >
@@ -117,7 +118,7 @@ const Navbar = () => {
           <div
             className={
               navbarOpen
-                ? `z-50 items-center justify-between absolute top-10 lg:top-0 lg:static w-96 md:flex md:w-auto md:order-1`
+                ? `z-50 items-center justify-between absolute right-[2px] top-16 shadow-lg lg:shadow-sm lg:top-0 lg:static w-96 md:flex md:w-auto md:order-1`
                 : `items-center hidden justify-between  w-full md:flex md:w-auto md:order-1`
             }
             id="profile-menu"
@@ -128,7 +129,7 @@ const Navbar = () => {
                   to="/"
                   className={({ isActive }) =>
                     isActive
-                      ? "block py-2 px-4 transition-all duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
+                      ? "block py-2 px-4 transition-all duration-700 border text-white bg-primary  border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
                       : "block py-2 px-4   md:text-lg rounded md:bg-transparent md:text-primary   "
                   }
                 >
@@ -140,7 +141,7 @@ const Navbar = () => {
                   to="/categories"
                   className={({ isActive }) =>
                   isActive
-                    ? "block py-2 px-4 transition-all duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
+                    ? "block py-2 px-4 transition-all duration-700 border text-white bg-primary  border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
                     : "block py-2 px-4   md:text-lg rounded md:bg-transparent md:text-primary   "
                 }
                 >
@@ -153,7 +154,7 @@ const Navbar = () => {
                   to="/bogs"
                   className={({ isActive }) =>
                   isActive
-                    ? "block py-2 px-4 transition-all duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
+                    ? "block py-2 px-4 transition-all text-white bg-primary  duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
                     : "block py-2 px-4   md:text-lg rounded md:bg-transparent md:text-primary   "
                 }
                 >
@@ -169,25 +170,25 @@ const Navbar = () => {
                   to="/login"
                   className={({ isActive }) =>
                   isActive
-                    ? "block py-2 px-4 transition-all duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
+                    ? "block py-2 px-4 transition-all text-white bg-primary  duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
                     : "block py-2 px-4   md:text-lg rounded md:bg-transparent md:text-primary   "
                 }
                 >
                   Login
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/signUp"
                   className={({ isActive }) =>
                   isActive
-                    ? "block py-2 px-4 transition-all duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
+                    ? "block py-2 px-4 transition-all text-white bg-primary  duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "
                     : "block py-2 px-4   md:text-lg rounded md:bg-transparent md:text-primary   "
                 }
                 >
                   SignUp
                 </NavLink>
-              </li>
+              </li> */}
 
 
                 </>

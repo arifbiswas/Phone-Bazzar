@@ -5,11 +5,15 @@ import { useQuery } from '@tanstack/react-query'
 import GeneralModal from "../../../../Components/GeneralModal/GeneralModal";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Categories from "../Categories/Categories";
+import Products from "../Porducts/Products";
+
+
 const CategoriesOptions = () => {
   const [modalClose, setModalClose] = useState(false);
   const { register, handleSubmit, reset } = useForm();
+  const [products , setProducts] = useState([]);
 
+  // All categories 
   const {data : categories =[] , refetch} = useQuery({
     queryKey : ["categories"],
     queryFn : ()=>fetch("http://localhost:5000/categories")
@@ -53,8 +57,19 @@ const CategoriesOptions = () => {
         console.log(e);
       });
   };
+
+  const handleProducts =(name)=>{
+    console.log(name);
+    axios.get(`http://localhost:5000/products/${name}`).then(res => {
+      // console.log(res.data);
+      setProducts(res.data)
+    }).catch(e =>{
+      console.log(e);
+    })
+  }
+
   return (
-    <div className=" p-4  bg-white">
+    <div className=" p-4 my-5  bg-white">
       <div className="flex mb-5  text-primary items-center justify-between mx-8 font-bold text-1xl">
         <h1>{"Categories"}</h1>
        
@@ -75,7 +90,9 @@ const CategoriesOptions = () => {
           className="relative transition-all duration-200 shadow-lg hover:p-3 p-4 lg:p-10 rounded-lg  hover:shadow flex flex-col justify-center items-center">
             <img src={category?.brandLogo} className="rounded-md  w-full h-[150px] bg-white" alt="" />
 
-            <button className=" py-4 w-full rounded-md mt-12 bg-primary text-gray-200 font-bold ">
+            <button 
+            onClick={()=>handleProducts(category?.categoryName)}
+            className=" py-4 w-full rounded-md mt-12 bg-primary text-gray-200 font-bold ">
             {category?.categoryName}
             </button>
           
@@ -84,8 +101,12 @@ const CategoriesOptions = () => {
        
       </div>
       <div>
-        <Categories 
-          ></Categories>
+        {
+          products && products.map(product =>  <Products 
+            key={product._id}
+            product={product}
+            ></Products>)
+        }
         </div>
       {modalClose && (
         <GeneralModal
@@ -104,6 +125,7 @@ const CategoriesOptions = () => {
           handleAdd={handleAddCategory}
         ></GeneralModal>
       )}
+      
     </div>
   );
 };

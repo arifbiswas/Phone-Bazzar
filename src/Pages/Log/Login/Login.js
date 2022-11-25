@@ -5,6 +5,7 @@ import { FaEnvelope, FaUnlock } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../ContextApi/AuthProvider";
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 const Login = () => {
   const {register,handleSubmit,reset} = useForm()
@@ -28,11 +29,28 @@ const Login = () => {
     console.log(data);
     login(data?.email,data.password)
     .then(result =>{
-      const user =result.user ;
-      console.log(user);
-      reset()
-      navigate(from,{replace : true})
-      toast.success("Login successfully Done")
+      const currentUser =result.user ;
+
+      // Add db user 
+      
+    const email = currentUser.email ;
+    const dbUser = {
+      email
+    }
+    // console.log(dbUser);
+    axios.post("http://localhost:5000/users",dbUser).then(res => {
+      // console.log(res);
+      // console.log(res.data.message);
+      currentUser.alreadyHave = res.data.message;
+       
+        reset()
+        navigate(from,{replace : true})
+        toast.success("Login successfully Done")
+      
+    }).catch(e => {
+      console.log(e)
+      toast.error(e.message)
+    })
     })
     .catch(e =>{
       console.log(e);
@@ -43,10 +61,32 @@ const Login = () => {
   const handleGoogleLogin =()=>{
     loginWithGoogle(googleAuthProvider)
     .then(result =>{
-      const user = result.user;
-      navigate(from,{replace : true})
-      toast.success("SignUp successfully Done")
-      console.log(user);
+      const currentUser = result.user;
+
+      // Add db user 
+      const name = currentUser.displayName; 
+    const email = currentUser.email ;
+    const dbUser = {
+      email,
+      name
+    }
+    // console.log(dbUser);
+    axios.post("http://localhost:5000/users",dbUser).then(res => {
+      // console.log(res);
+      // console.log(res.data.message);
+      currentUser.alreadyHave = res?.data?.message;
+       
+        reset()
+        navigate(from,{replace : true})
+        toast.success("Login successfully Done")
+      
+    }).catch(e => {
+      console.log(e)
+      toast.error(e.message)
+    })
+
+
+    
     })
     .catch(e =>{
       console.log(e);
@@ -54,6 +94,7 @@ const Login = () => {
     })
   }
 
+  //  console.log(user);
 
   return (
     <div>
