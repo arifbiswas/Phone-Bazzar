@@ -6,7 +6,7 @@ import Login from "../../Pages/Log/Login/Login";
 import SignUp from "../../Pages/Log/SignUp/SignUp";
 import Product from "../../Pages/Pages/Categories/Product/Product";
 
-import AddAProducts from "../../Pages/Pages/Dashboard/AddAProducts/AddAProducts";
+
 import AllBuyers from "../../Pages/Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../Pages/Pages/Dashboard/Dashboard/Dashboard";
@@ -15,6 +15,7 @@ import MyOrders from "../../Pages/Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Pages/Dashboard/MyProducts/MyProducts";
 import Home from "../../Pages/Pages/Home/Home/Home";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
+import PrivateRoutes from "../Private/PrivateRoutes/PrivateRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -40,42 +41,38 @@ export const router = createBrowserRouter([
             },
             {
                 path : '/product/:id',
-                element : <Product></Product>,
+                element : <PrivateRoutes><Product></Product></PrivateRoutes>,
                 loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
             },
         ]
     },
     {
         path : "/dashboard",
-        element : <DashboardLayout></DashboardLayout>,
+        element : <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
         children : [
             {
                 path : "/dashboard",
-                element : <Dashboard></Dashboard>
+                element : <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
             },
             {
                 path : "/dashboard/myProducts",
-                element : <MyProducts></MyProducts>
+                element : <PrivateRoutes><MyProducts></MyProducts></PrivateRoutes>
             },
             {
                 path : "/dashboard/myBuyers",
-                element : <MyBuyers></MyBuyers>
+                element : <PrivateRoutes><MyBuyers></MyBuyers></PrivateRoutes>
             },
             {
                 path : "/dashboard/allSellers",
-                element : <AllSellers></AllSellers>
+                element : <PrivateRoutes><AllSellers></AllSellers></PrivateRoutes>
             },
             {
                 path : "/dashboard/allBuyers",
-                element : <AllBuyers></AllBuyers>
-            },
-            {
-                path : "/dashboard/addProducts",
-                element : <AddAProducts></AddAProducts>
+                element : <PrivateRoutes><AllBuyers></AllBuyers></PrivateRoutes>
             },
             {
                 path : "/dashboard/myOrders",
-                element : <MyOrders></MyOrders>
+                element : <PrivateRoutes><MyOrders></MyOrders></PrivateRoutes>
             },
         ]
     }

@@ -35,19 +35,19 @@ const GeneralModal = ({title,imageFiled,location,name,email,register,handleSubmi
           </label>
             }
             {
-              radioField1 &&  <> <div class="flex gap-2  my-4">
+              radioField1 &&  <> <div className="flex gap-2  my-4">
               <div>
-              <label for="radio-1" class="ml-2 text-lg font-medium text-gray-900 ">
-                  <input {...register(radioField1.register)} id="radio-1" defaultChecked type="radio" value={radioField1?.value} class="w-4 h-4bg-gray-100 border-gray-300  " />
+              <label for="radio-1" className="ml-2 text-lg font-medium text-gray-900 ">
+                  <input {...register(radioField1.register)} id="radio-1" defaultChecked type="radio" value={radioField1?.value} className="w-4 h-4bg-gray-100 border-gray-300  " />
                   {radioField1?.label}</label>
               </div>
                   
                 {
                   radioField2 && <>
                    <div>
-                 <label for="radio-2" class="ml-2 text-lg font-medium text-gray-900 ">
+                 <label for="radio-2" className="ml-2 text-lg font-medium text-gray-900 ">
                   <input {...register(radioField2.register)} id="radio-2" type="radio" 
-                  value={radioField2?.value} class="w-4 h-4bg-gray-100 border-gray-300 " />
+                  value={radioField2?.value} className="w-4 h-4bg-gray-100 border-gray-300 " />
                   {radioField2?.label}</label>
                  </div>
                   </>
@@ -55,9 +55,9 @@ const GeneralModal = ({title,imageFiled,location,name,email,register,handleSubmi
                  {
                   radioField3 && <>
                    <div>
-                  <label for="radio-3" class="ml-2 text-lg font-medium text-gray-900 ">
+                  <label for="radio-3" className="ml-2 text-lg font-medium text-gray-900 ">
                   <input {...register(radioField3.register)} id="radio-3" type="radio" 
-                  value={radioField3?.value} class="w-4 h-4bg-gray-100 border-gray-300 " />
+                  value={radioField3?.value} className="w-4 h-4bg-gray-100 border-gray-300 " />
                   {radioField3?.label}</label>
                   </div>
                   </>

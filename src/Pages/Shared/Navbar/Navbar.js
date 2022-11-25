@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaMobile, FaMobileAlt, FaStore } from "react-icons/fa";
 import { AuthContext } from "../../../ContextApi/AuthProvider";
 
 const Navbar = () => {
-
+  const navigate = useNavigate()
   const {user ,logOut} = useContext(AuthContext);
 
   const [profileOpen, setProfileOpen] = useState(false);
@@ -12,6 +12,8 @@ const Navbar = () => {
  
   const handleLogOut =()=>{
     logOut()
+    navigate('/login')
+    setProfileOpen(false)
   }
 
   return (

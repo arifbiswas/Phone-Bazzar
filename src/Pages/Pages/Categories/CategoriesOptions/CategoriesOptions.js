@@ -59,8 +59,8 @@ const CategoriesOptions = () => {
   };
 
   const handleProducts =(name)=>{
-    console.log(name);
-    axios.get(`http://localhost:5000/products/${name}`).then(res => {
+    // console.log(name);
+    axios.get(`http://localhost:5000/products?name=${name}`).then(res => {
       // console.log(res.data);
       setProducts(res.data)
     }).catch(e =>{

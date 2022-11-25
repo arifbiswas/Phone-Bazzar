@@ -15,6 +15,8 @@ const SignUp = () => {
 
   const googleAuthProvider = new GoogleAuthProvider();
 
+
+
   const {
     user,
         loading,
@@ -227,13 +229,13 @@ const SignUp = () => {
               </p>
 
 
-              <div class="flex gap-2 flex-col my-4">
-<label for="default-radio-1" class="ml-2 text-lg font-medium text-gray-900 ">
-    <input {...register("role")} id="default-radio-1" defaultChecked type="radio" value="buyer" class="w-4 h-4bg-gray-100 border-gray-300  " />
+              <div className="flex gap-2 flex-col my-4">
+<label for="default-radio-1" className="ml-2 text-lg font-medium text-gray-900 ">
+    <input {...register("role")} id="default-radio-1" defaultChecked type="radio" value="buyer" className="w-4 h-4bg-gray-100 border-gray-300  " />
     Buyer</label>
     
-    <label for="default-radio-2" class="ml-2 text-lg font-medium text-gray-900 ">
-    <input {...register("role")} id="default-radio-2" type="radio" value="seller" class="w-4 h-4bg-gray-100 border-gray-300 " />
+    <label for="default-radio-2" className="ml-2 text-lg font-medium text-gray-900 ">
+    <input {...register("role")} id="default-radio-2" type="radio" value="seller" className="w-4 h-4bg-gray-100 border-gray-300 " />
     Seller</label>
 </div>
 

@@ -1,14 +1,33 @@
-import React, { useContext } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query'
 import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../ContextApi/AuthProvider";
-import Navbar from "../../Pages/Shared/Navbar/Navbar";
+
 import user1 from "../../Assets/user1.png";
-import user2 from "../../Assets/user2.png";
+
 import DashboardNavbar from "../../Pages/Shared/Navbar/DashboardNavbar";
+import axios from "axios";
+import PageLoading from "../../Pages/Shared/PageLoading/PageLoading";
 
 const DashboardLayout = () => {
-  const {user} = useContext(AuthContext);
+  const {user , loading} = useContext(AuthContext);
+  const [userRole , setUserRole ] = useState(null)
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/role?email=${user?.email}`).then(res => {
+      // console.log(res.data);
+      // user.userRole = res.data.role ;
+      setUserRole(res.data.role)
+      return res.data;
+    }).catch(e=>{
+      console.log(e)
+    })
+  },[user?.email])
+  if(loading){
+    return <PageLoading></PageLoading>
+  }
+
+  // console.log(userRole);
+
   return (
     <div>
       <DashboardNavbar></DashboardNavbar>
@@ -33,32 +52,46 @@ const DashboardLayout = () => {
                 <h5 className="mb-1 text-xl font-medium text-gray-50 ">
                 {user?.displayName}
                 </h5>
-                <span className="text-sm text-gray-50 ">Visual Designer</span>
+                <span className="text-sm text-gray-50 ">{userRole}</span>
               </div>
             </div>
           {/* profile  */}
             {/* <!-- Sidebar content here --> */}
            {/* menu list  */}
            <div>
-           <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/allSellers">
+            {
+            userRole &&  userRole === "admin" && <>
+               <li>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/allSellers">
                 All Sellers</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/allBuyers">All Buyers</NavLink>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/allBuyers">All Buyers</NavLink>
+            </li>
+              </>
+            }
+          {
+          userRole && userRole === "seller" && <>
+              <li>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myProducts">My Products</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/myProducts">My Products</NavLink>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myBuyers">My Buyers</NavLink>
             </li>
             <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/myBuyers">My Buyers</NavLink>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/addProducts">Add Products</NavLink>
             </li>
-            <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/addProducts">Add Products</NavLink>
+             </>
+          }
+          {
+          userRole && userRole === "buyer" && <>
+              <li>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myOrders">My Orders</NavLink>
             </li>
-            <li>
-              <NavLink className={({isActive})=>isActive ? "mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600" : "mb-3 bg-white text-gray-600 font-bold  hover:bg-primary  hover:text-gray-50 outline hover:outline-white"} to="/dashboard/myOrders">My Orders</NavLink>
-            </li>
+             </>
+          }
+           
+           
            </div>
           </ul>
         </div>

@@ -10,9 +10,9 @@ const Footer = () => {
               <div>
                 <a
                   href="#"
-                  className="text-xl font-bold text-gray-800  hover:text-gray-700 "
+                  className="text-xl font-bold text-primary   "
                 >
-                  Brand
+                    PHONE BAZAAR 
                 </a>
               </div>
 

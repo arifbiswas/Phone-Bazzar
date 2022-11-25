@@ -13,21 +13,21 @@ const MyBuyers = () => {
             <h1 className='text-3xl my-5 font-bold text-primary '>All Buyers</h1>
             <div>
             
-<div class="w-full shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 ">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+<div className="w-full shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left text-gray-500 ">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                     Email
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                     Name
                 </th>
-                {/* <th scope="col" class="py-3 px-6">
+                {/* <th scope="col" className="py-3 px-6">
                     Total Products
                 </th> */}
                 
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" className="py-3 px-6">
                     Action
                 </th>
             </tr>
@@ -35,18 +35,18 @@ const MyBuyers = () => {
         <tbody>
             {
                 allBuyers && allBuyers.map(buyer => 
-                    <tr key={buyer._id} class="bg-white border-b  ">
-                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                    <tr key={buyer._id} className="bg-white border-b  ">
+                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
                     {buyer?.email}
                 </th>
-                <td class="py-4 px-6">
+                <td className="py-4 px-6">
                 {buyer?.name}
                 </td>
-                {/* <td class="py-4 px-6">
+                {/* <td className="py-4 px-6">
                     Products count 
                 </td> */}
                 
-                <td class="py-4 px-6">
+                <td className="py-4 px-6">
                    <button className='btn btn-sm btn-error'>Delete</button>
                 </td>
             </tr>
