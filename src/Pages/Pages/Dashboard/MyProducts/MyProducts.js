@@ -8,18 +8,6 @@ import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext);
-    // const [myProducts , setMyProducts] = useState([]);
-   
-    // useEffect(()=>{
-    //     axios.get(`http://localhost:5000/products?email=${user?.email}`).then(res => {
-    //   // console.log(res.data);
-    //   setMyProducts(res.data)
-    // }).catch(e =>{
-    //   console.log(e);
-    // })
-    // },[user?.email])
-    
-    // console.log(myProducts);
 
     const {data : myProducts =[] , refetch} = useQuery({
         queryKey : ["myProducts",user?.email],

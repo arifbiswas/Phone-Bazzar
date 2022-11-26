@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from "firebase/auth"
 import app from '../Firebase/FirebaseConfig';
+import axios from 'axios';
 
 
 export const AuthContext = createContext()
@@ -44,6 +45,15 @@ const AuthProvider = ({children}) => {
                 setUser(currentUser)
                 // console.log("setAuth State" , currentUser);
                 setLoading(false)
+                if(currentUser){
+                    axios.get(`http://localhost:5000/role?email=${currentUser?.email}`).then(res => {
+                        // console.log(res.data);
+                        currentUser.userRole = res.data.role ;
+                    }).catch(e=>{
+                        console.log(e)
+                    })
+                }
+               
             })
             return () =>{
                 subscriber()
@@ -58,7 +68,8 @@ const AuthProvider = ({children}) => {
         login,
         loginWithGoogle,
         updateUser,
-        logOut
+        logOut,
+        setLoading
     }
     return (
         <AuthContext.Provider value={userInfo}>

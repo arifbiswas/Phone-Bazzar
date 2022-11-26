@@ -6,10 +6,10 @@ const DashboardNavbar = () => {
             <div className="navbar bg-base-100">
  
   <div className="flex-1">
-    <a className="font-black text-primary normal-case text-xl">Dashboard</a>
+    <p className="font-black text-primary normal-case text-xl">Dashboard</p>
   </div>
   <div className="flex-none ">
-    <Link to="/" className='btn btn-primary mr-3'>Go Home</Link>
+    <Link to="/" className='btn btn-primary text-white mr-3'>Go Home</Link>
   </div>
   <div className="flex-none lg:hidden">
     <label htmlFor="dashboard-modal" className="btn btn-primary  drawer-button lg:hidden">

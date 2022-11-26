@@ -4,6 +4,8 @@ import DashboardLayout from "../../Layouts/Main/DashboardLayout";
 import Main from "../../Layouts/Main/Main";
 import Login from "../../Pages/Log/Login/Login";
 import SignUp from "../../Pages/Log/SignUp/SignUp";
+import Cart from "../../Pages/Pages/Cart/Cart";
+import CheckOut from "../../Pages/Pages/Categories/Product/CheckOut";
 import Product from "../../Pages/Pages/Categories/Product/Product";
 
 
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
                 element : <PrivateRoutes><Product></Product></PrivateRoutes>,
                 loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
             },
+            {
+                path : "/checkout",
+                element : <PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>
+            },
+            {
+                path : "/cart",
+                element : <PrivateRoutes><Cart></Cart></PrivateRoutes>
+            },
         ]
     },
     {
@@ -74,6 +84,7 @@ export const router = createBrowserRouter([
                 path : "/dashboard/myOrders",
                 element : <PrivateRoutes><MyOrders></MyOrders></PrivateRoutes>
             },
+           
         ]
     }
 ])

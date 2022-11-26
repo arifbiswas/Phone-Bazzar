@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../ContextApi/AuthProvider";
 import toast from 'react-hot-toast';
 import axios from "axios";
+import ButtonLoader from "../../../Components/ButtonLoader/ButtonLoader";
 
 const Login = () => {
   const {register,handleSubmit,reset} = useForm()
@@ -13,6 +14,7 @@ const Login = () => {
   const {
     user,
         loading,
+        setLoading,
         createUser,
         login,
         loginWithGoogle,
@@ -46,15 +48,18 @@ const Login = () => {
         reset()
         navigate(from,{replace : true})
         toast.success("Login successfully Done")
+        setLoading(false)
       
     }).catch(e => {
       console.log(e)
       toast.error(e.message)
+      setLoading(false)
     })
     })
     .catch(e =>{
       console.log(e);
       toast.error(e.message)
+      setLoading(false)
     })
   }
 
@@ -83,6 +88,7 @@ const Login = () => {
     }).catch(e => {
       console.log(e)
       toast.error(e.message)
+      setLoading(false)
     })
 
 
@@ -91,6 +97,7 @@ const Login = () => {
     .catch(e =>{
       console.log(e);
       toast.error(e.message)
+      setLoading(false)
     })
   }
 
@@ -208,8 +215,10 @@ const Login = () => {
               <div className="flex items-center justify-center mt-8">
                 
                 <button className="text-white py-2 px-4 uppercase rounded bg-cyan-500 hover:bg-cyan-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                  
-                  Sign in
+                  {
+                    loading ? <ButtonLoader></ButtonLoader> :"Sign in"
+                  }
+                
                 </button>
               </div>
             </form>

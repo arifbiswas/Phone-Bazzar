@@ -1,16 +1,28 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../../ContextApi/AuthProvider';
+import PageLoading from '../../../Shared/PageLoading/PageLoading';
 
 const MyOrders = () => {
-    const {data : allBuyers =[] } = useQuery({
-        queryKey : ["allBuyers"],
-        queryFn : () => axios.get('http://localhost:5000/users?buyer=buyer').then(res =>res.data).catch(e => console.log(e))
-    })
+    const {user, loading} = useContext(AuthContext);
+    const [orders , setOrders] = useState([]);
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/orders?email=${user?.email}`).then(res =>{
+            // console.log(res.data);
+            setOrders(res.data)
+        }).catch(e => console.log(e))
+    },[user?.email])
+    // http://localhost:5000/orders?email=nosi@gmail.com
 
+    if(loading){
+        return <PageLoading></PageLoading>
+    }
+    
     return (
         <div className='mx-5 '>
-            <h1 className='text-3xl my-5 font-bold text-primary '>All Buyers</h1>
+            <h1 className='text-3xl my-5 font-bold text-primary '>My Orders</h1>
             <div>
             <label
             htmlFor="dashboard-modal"
@@ -18,20 +30,22 @@ const MyOrders = () => {
           >
             Open drawer
           </label>
-<div className="w-full shadow-md sm:rounded-lg">
+          <div className="w-full shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
                 <th scope="col" className="py-3 px-6">
-                    Email
+                Picture
                 </th>
                 <th scope="col" className="py-3 px-6">
-                    Name
+                Product Name
                 </th>
-                {/* <th scope="col" className="py-3 px-6">
-                    Total Products
-                </th> */}
-                
+                <th scope="col" className="py-3 px-6">
+                      Category
+                </th>
+                <th scope="col" className="py-3 px-6">
+                    Price 
+                </th>
                 <th scope="col" className="py-3 px-6">
                     Action
                 </th>
@@ -39,20 +53,24 @@ const MyOrders = () => {
         </thead>
         <tbody>
             {
-                allBuyers && allBuyers.map(buyer => 
-                    <tr key={buyer._id} className="bg-white border-b  ">
+                orders && orders.map(order => 
+                    <tr key={order._id} className="bg-white border-b  ">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    {buyer?.email}
+                <div className="mask mask-square w-12 h-12">
+                <img src={order?.picture} alt="Avatar Tailwind CSS Component" />
+              </div>
+                </th>
+                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                    {order?.productName}
                 </th>
                 <td className="py-4 px-6">
-                {buyer?.name}
+                {order?.productCategory}
                 </td>
-                {/* <td className="py-4 px-6">
-                    Products count 
-                </td> */}
-                
                 <td className="py-4 px-6">
-                   <button className='btn btn-sm btn-error'>Delete</button>
+                {order?.productPrice} .Tk
+                </td>
+                <td className="py-4 px-6">
+                   <Link to="/checkout" className='btn btn-sm btn-primary'>Pay</Link>
                 </td>
             </tr>
                     

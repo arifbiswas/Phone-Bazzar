@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Products = ({product}) => {
   return (
-    <div className="p-5 bg-white ">
+    <div className="p-0 lg:p-5 bg-white ">
         {/* <div className="flex text-primary  items-center justify-between mx-8 my-8 font-bold text-1xl">
             <h1>{"Unsold Products"}</h1>
             <button className="bg-primary text-white py-2 px-4 font-semibold rounded-md">Add Products</button>

@@ -1,19 +1,20 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { FaMobile, FaMobileAlt, FaStore } from "react-icons/fa";
+import { FaMobile, FaMobileAlt, FaShoppingCart } from "react-icons/fa";
 import { AuthContext } from "../../../ContextApi/AuthProvider";
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const {user ,logOut} = useContext(AuthContext);
+  const {user ,logOut,setLoading} = useContext(AuthContext);
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
  
   const handleLogOut =()=>{
-    logOut()
     navigate('/login')
     setProfileOpen(false)
+    setLoading(false)
+    logOut()
   }
 
   return (
@@ -33,9 +34,16 @@ const Navbar = () => {
           </Link>
 
           {/* Profile  */}
-
+           
           {
             user?.uid && <div className="flex items-center md:order-2">
+              <div className="relative hidden lg:block -left-6">
+                {/* Cart  */}
+                <button className="btn btn-primary text-lg">
+                <FaShoppingCart></FaShoppingCart>
+                </button>
+
+              </div>
             <label
             tabIndex={0}
               onClick={() => {
@@ -45,20 +53,22 @@ const Navbar = () => {
               type="button"
               className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300"
             >
-              <span className="sr-only">Open user menu</span>
+              <span className="sr-only">Open</span>
               <div className="avatar">
                 <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                   <img src={user?.photoURL} />
                 </div>
               </div>
             </label>
+            
             {/* <!-- Dropdown menu --> */}
             <div
               className={
                 profileOpen
-                  ? `z-50 absolute dropdown dropdown-end top-16 right-8 md:right-52 my-4  list-none bg-white divide-y divide-gray-100 rounded shadow `
+                  ? `z-50 absolute dropdown dropdown-end top-16 right-8 lg:right-52 my-4  list-none bg-white divide-y divide-gray-100 rounded shadow `
                   : `z-50 hidden my-4 dropdown dropdown-end list-none bg-white divide-y divide-gray-100 rounded shadow `
               }
+              
             >
               <div className="px-4 py-3">
                 <span className="block text-lg text-gray-900 ">
@@ -69,6 +79,7 @@ const Navbar = () => {
                 </span>
               </div>
               <ul tabIndex={0} className="py-1" aria-labelledby="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                
                 <li>
                   <NavLink
                     to="/dashboard"
@@ -82,13 +93,20 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <Link
+                  <button
                   onClick={handleLogOut}
-                    to="#"
                     className="block px-4 py-2 text-lg text-gray-700 hover:bg-gray-100 "
                   >
                     Sign out
-                  </Link>
+                  </button>
+                </li>
+                {/* cart  */}
+                <li>
+                <div className=" via-current flex justify-center lg:hidden border-t px-2 py-3">
+                <button className="btn btn-primary w-full text-lg">
+                <FaShoppingCart></FaShoppingCart>
+                </button>
+              </div>
                 </li>
               </ul>
             </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query'
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../ContextApi/AuthProvider";
 
 import user1 from "../../Assets/user1.png";
@@ -8,14 +8,16 @@ import user1 from "../../Assets/user1.png";
 import DashboardNavbar from "../../Pages/Shared/Navbar/DashboardNavbar";
 import axios from "axios";
 import PageLoading from "../../Pages/Shared/PageLoading/PageLoading";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import ButtonLoader from "../../Components/ButtonLoader/ButtonLoader";
 
 const DashboardLayout = () => {
-  const {user , loading} = useContext(AuthContext);
+  const {user , loading ,logOut} = useContext(AuthContext);
   const [userRole , setUserRole ] = useState(null)
   useEffect(()=>{
     axios.get(`http://localhost:5000/role?email=${user?.email}`).then(res => {
       // console.log(res.data);
-      // user.userRole = res.data.role ;
+      user.userRole = res.data.role ;
       setUserRole(res.data.role)
       return res.data;
     }).catch(e=>{
@@ -27,7 +29,9 @@ const DashboardLayout = () => {
   }
 
   // console.log(userRole);
-
+  const handlelogOut =()=>{
+    logOut()
+  }
   return (
     <div>
       <DashboardNavbar></DashboardNavbar>
@@ -58,7 +62,8 @@ const DashboardLayout = () => {
           {/* profile  */}
             {/* <!-- Sidebar content here --> */}
            {/* menu list  */}
-           <div>
+           <div className="flex flex-col justify-between">
+           <div className="flex flex-col gap-4">
             {
             userRole &&  userRole === "admin" && <>
                <li>
@@ -78,9 +83,7 @@ const DashboardLayout = () => {
             <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myBuyers">My Buyers</NavLink>
             </li>
-            <li>
-              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/addProducts">Add Products</NavLink>
-            </li>
+      
              </>
           }
           {
@@ -93,6 +96,13 @@ const DashboardLayout = () => {
            
            
            </div>
+           <div>
+           <button
+           onClick={handlelogOut}
+           className="btn mb-3 bg-primary mt-40 lg:mt-80 text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full"><span className="mr-3"><FaArrowAltCircleLeft></FaArrowAltCircleLeft></span> {loading ?<ButtonLoader></ButtonLoader> :"LogOut" } </button>
+           </div>
+           </div>
+           
           </ul>
         </div>
       </div>
