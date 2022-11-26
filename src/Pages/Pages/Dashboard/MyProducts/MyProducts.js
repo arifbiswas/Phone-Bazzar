@@ -88,7 +88,7 @@ const MyProducts = () => {
         </div>
             <div>
             
-<div className="w-full shadow-md sm:rounded-lg">
+<div className="w-full shadow-md sm:rounded-lg overflow-x-auto">
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>

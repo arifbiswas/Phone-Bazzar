@@ -39,9 +39,11 @@ const Navbar = () => {
             user?.uid && <div className="flex items-center md:order-2">
               <div className="relative hidden lg:block -left-6">
                 {/* Cart  */}
-                <button className="btn btn-primary text-lg">
-                <FaShoppingCart></FaShoppingCart>
-                </button>
+                {
+                  user?.userRole === "buyer" && <Link to="/cart" className="btn btn-primary text-lg">
+                  <FaShoppingCart></FaShoppingCart>
+                  </Link>
+                }
 
               </div>
             <label
@@ -101,13 +103,15 @@ const Navbar = () => {
                   </button>
                 </li>
                 {/* cart  */}
-                <li>
-                <div className=" via-current flex justify-center lg:hidden border-t px-2 py-3">
-                <button className="btn btn-primary w-full text-lg">
-                <FaShoppingCart></FaShoppingCart>
-                </button>
-              </div>
-                </li>
+                {
+                  user?.userRole === "buyer" && <li>
+                  <div className=" via-current flex justify-center lg:hidden border-t px-2 py-3">
+                  <Link to="/cart" className="btn btn-primary w-full text-lg">
+                  <FaShoppingCart></FaShoppingCart>
+                  </Link>
+                </div>
+                  </li>
+                }
               </ul>
             </div>
             <button
@@ -138,7 +142,7 @@ const Navbar = () => {
           <div
             className={
               navbarOpen
-                ? `z-50 items-center justify-between absolute right-[2px] top-16 shadow-lg lg:shadow-sm lg:top-0 lg:static w-96 md:flex md:w-auto md:order-1`
+                ? `z-50 items-center justify-between absolute right-[2px] top-16 shadow-lg lg:shadow-sm lg:top-0 lg:static  md:flex md:w-auto md:order-1`
                 : `items-center hidden justify-between  w-full md:flex md:w-auto md:order-1`
             }
             id="profile-menu"

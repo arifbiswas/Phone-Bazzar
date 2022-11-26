@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from '@tanstack/react-query'
 
@@ -6,9 +6,12 @@ import GeneralModal from "../../../../Components/GeneralModal/GeneralModal";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Products from "../Porducts/Products";
+import { AuthContext } from "../../../../ContextApi/AuthProvider";
+import PageLoading from "../../../Shared/PageLoading/PageLoading";
 
 
 const CategoriesOptions = () => {
+  const {user,loading , setLoading} = useContext(AuthContext)
   const [modalClose, setModalClose] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [products , setProducts] = useState([]);
@@ -26,6 +29,7 @@ const CategoriesOptions = () => {
 
   const handleAddCategory = (categoryInfo) => {
     // console.log(categoryInfo);
+    setLoading(true)
     const Logo = categoryInfo.categoryLogo[0];
     console.log(Logo);
     const formData = new FormData();
@@ -49,6 +53,7 @@ const CategoriesOptions = () => {
               toast.success("Add a new category successfully");
               setModalClose(false);
               refetch()
+              setLoading(false)
             }
           })
           .catch((e) => console.log(e))};
@@ -58,28 +63,49 @@ const CategoriesOptions = () => {
       });
   };
 
+  
+   useEffect(()=>{
+     // console.log(name);
+     setLoading(true)
+     axios.get(`http://localhost:5000/products`).then(res => {
+      // console.log(res.data);
+      setProducts(res.data)
+      setLoading(false)
+    }).catch(e =>{
+      console.log(e);
+    })
+   },[])
+  
   const handleProducts =(name)=>{
+    
     // console.log(name);
     axios.get(`http://localhost:5000/products?name=${name}`).then(res => {
       // console.log(res.data);
       setProducts(res.data)
+      setLoading(false)
     }).catch(e =>{
       console.log(e);
     })
+  }
+
+  if(loading){
+    return <PageLoading></PageLoading>
   }
 
   return (
     <div className=" p-4 my-5  bg-white">
       <div className="flex mb-5  text-primary items-center justify-between mx-8 font-bold text-1xl">
         <h1>{"Categories"}</h1>
-       
-        <label
-          onClick={() => setModalClose(true)}
-          htmlFor="add-modal"
-          className="btn btn-primary text-white py-2 px-4 font-semibold rounded-md"
-        >
-          Add Category
-        </label>
+       {
+        user?.userRole === "admin" && <label
+        onClick={() => setModalClose(true)}
+        htmlFor="add-modal"
+        className="btn btn-primary text-white py-2 px-4 font-semibold rounded-md"
+      >
+        Add Category
+      </label>
+       }
+        
       </div>
 
      
@@ -101,6 +127,7 @@ const CategoriesOptions = () => {
        
       </div>
       <div>
+        <h1 className="mt-5 text-primary mx-8 font-bold text-1xl">Products</h1>
         {
           products && products.map(product =>  <Products 
             key={product._id}

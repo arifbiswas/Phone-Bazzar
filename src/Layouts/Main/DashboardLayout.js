@@ -44,7 +44,7 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side border bg-base-100 lg:bg-primary">
           <label htmlFor="dashboard-modal" className="drawer-overlay"></label>
-          <ul className="menu items-center gap-5 p-4 w-80  text-base-content">
+          <ul className="menu items-center gap-5 p-4 w-80  bg-primary  text-base-content">
           {/* profile  */}
           <div className=" rounded-lg  mt-12 ">
               <div className="flex justify-center items-center flex-col">

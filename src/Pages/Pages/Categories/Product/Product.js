@@ -3,13 +3,15 @@ import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
+import PageLoading from '../../../Shared/PageLoading/PageLoading';
 
 const Product = () => {
-  const {user} = useContext(AuthContext);
+  const {user ,loading ,setLoading} = useContext(AuthContext);
   const navigate = useNavigate();
     const product = useLoaderData()
 
     const handleBuyProducts = (product) =>{
+      setLoading(true)
       // console.log(product);
       // const orderEmail = user?.email;
       // const productId = product._id;
@@ -25,8 +27,10 @@ const Product = () => {
       delete(product._id)
       axios.post("http://localhost:5000/orders",product).then(res =>{
         if(res.data.acknowledged){
+          setLoading(false)
           toast.success("Order Placed Successfully.Please Payment")
           navigate("/dashboard/myOrders")
+          
         }
         
       }).catch(e =>{
@@ -38,7 +42,31 @@ const Product = () => {
     // console.log(user);
 
     const handleWishList =(wishProduct)=>{
-      console.log(wishProduct);
+      setLoading(true)
+      // console.log(wishProduct);
+      wishProduct.cartEmail = user?.email;
+      wishProduct.buyerName = user?.displayName;
+      wishProduct.buyerPicture = user?.photoURL;
+
+      delete(wishProduct.postDateInfo) 
+      delete(wishProduct.description) 
+      delete(wishProduct.name) 
+      delete(wishProduct._id)
+      axios.post("http://localhost:5000/carts",wishProduct).then(res =>{
+        if(res.data.acknowledged){
+          setLoading(false)
+          toast.success("Add Wishlist")
+          // navigate("/dashboard/myCart")
+        }
+        
+      }).catch(e =>{
+        // console.log(e);
+      })
+    }
+
+
+    if(loading){
+      return <PageLoading></PageLoading>
     }
 
     return (
