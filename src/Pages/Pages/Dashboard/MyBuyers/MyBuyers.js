@@ -20,11 +20,12 @@ const MyBuyers = () => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
                 <th scope="col" className="py-3 px-6">
-                    Email
-                </th>
-                <th scope="col" className="py-3 px-6">
                     Name
                 </th>
+                <th scope="col" className="py-3 px-6">
+                    Email
+                </th>
+                
                 <th scope="col" className="py-3 px-6">
                     Number
                 </th>
@@ -39,10 +40,11 @@ const MyBuyers = () => {
                 myBuyers && myBuyers.map(buyer => 
                     <tr key={buyer._id} className="bg-white border-b  ">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    {buyer?.buyerEmail}
+                    
+                    {buyer?.buyerName}
                 </th>
                 <td className="py-4 px-6">
-                {buyer?.buyerName}
+                {buyer?.buyerEmail}
                 </td>
                 <td className="py-4 px-6">
                     {buyer?.buyerNumber}

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import verified from '../../../../Assets/verified1.png'
+import { AuthContext } from "../../../../ContextApi/AuthProvider";
 
 const Products = ({product}) => {
+  
   return (
     <div className="p-0 lg:p-5 bg-white ">
         {/* <div className="flex text-primary  items-center justify-between mx-8 my-8 font-bold text-1xl">
@@ -15,9 +17,9 @@ const Products = ({product}) => {
         </figure>
         <div className="card-body flex-1">
           <h2 className="card-title text-primary">{product?.productName}</h2>
-          <div className='text-gray-400 flex items-center'> {product?.verified ?<div className='flex items-center'> <h1>verified</h1> <img src={verified} className="w-12" alt="" /></div> : "Unverified"}
+          <div className='text-gray-400 flex items-center'> {product?.verified ?<div className='flex items-center'> <h1>Post by verified user</h1> <img src={verified} className="w-12" alt="" /></div> : "Unverified"}
           </div>
-          <p className="text-sm text-gray-500 ">Post by {product?.name} 
+          <p className="text-sm text-gray-500 ">{product?.name} 
           {/* badge */}
           <small className="ml-3">{product?.postDateInfo?.postDay} {product?.postDateInfo?.postTime}</small><span>{}</span></p>
           <p className="text-gray-600">{product?.description.length < 200 ? product?.description : product?.description.slice(0,200) + "...." } <small className="text-primary">see more Click Detail</small></p>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import {  useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 import PageLoading from '../../../Shared/PageLoading/PageLoading';
 import BookedModal from './BookedModal';
@@ -14,7 +14,7 @@ const Product = () => {
   const navigate = useNavigate();
     const product = useLoaderData()
     const {register , handleSubmit , reset} = useForm()
-
+    console.log(user);
     const handleBuyProducts = (booked) =>{
       booked.picture = product.picture;
       booked.productCategory = product.productCategory;

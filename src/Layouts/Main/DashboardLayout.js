@@ -13,23 +13,12 @@ import ButtonLoader from "../../Components/ButtonLoader/ButtonLoader";
 
 const DashboardLayout = () => {
   const {user , loading ,logOut} = useContext(AuthContext);
-  const [userRole , setUserRole ] = useState(null)
-  useEffect(()=>{
-    axios.get(`http://localhost:5000/role?email=${user?.email}`).then(res => {
-      // console.log(res.data);
-      user.userRole = res.data.role ;
-      setUserRole(res.data.role)
-      return res.data;
-    }).catch(e=>{
-      console.log(e)
-    })
-  },[user?.email])
   if(loading){
     return <PageLoading></PageLoading>
   }
 
   // console.log(userRole);
-  const handlelogOut =()=>{
+  const handleLoOut =()=>{
     logOut()
   }
   return (
@@ -56,7 +45,7 @@ const DashboardLayout = () => {
                 <h5 className="mb-1 text-xl font-medium text-gray-50 ">
                 {user?.displayName}
                 </h5>
-                <span className="text-sm text-gray-50 ">{userRole}</span>
+                <span className="text-sm text-gray-50 ">{user?.userRole}</span>
               </div>
             </div>
           {/* profile  */}
@@ -65,7 +54,7 @@ const DashboardLayout = () => {
            <div className="flex flex-col justify-between">
            <div className="flex flex-col gap-4">
             {
-            userRole &&  userRole === "admin" && <>
+            user?.userRole &&  user?.userRole === "admin" && <>
                <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard">
                 Dashboard</NavLink>
@@ -80,7 +69,7 @@ const DashboardLayout = () => {
               </>
             }
           {
-          userRole && userRole === "seller" && <>
+          user?.userRole && user?.userRole === "seller" && <>
               <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myProducts">My Products</NavLink>
             </li>
@@ -91,7 +80,7 @@ const DashboardLayout = () => {
              </>
           }
           {
-          userRole && userRole === "buyer" && <>
+          user?.userRole && user?.userRole === "buyer" && <>
               <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myBooked">My Booked</NavLink>
             </li>
@@ -102,7 +91,7 @@ const DashboardLayout = () => {
            </div>
            <div>
            <button
-           onClick={handlelogOut}
+           onClick={handleLoOut}
            className="btn mb-3 bg-primary mt-40 lg:mt-80 text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full"><span className="mr-3"><FaArrowAltCircleLeft></FaArrowAltCircleLeft></span> {loading ?<ButtonLoader></ButtonLoader> :"LogOut" } </button>
            </div>
            </div>

@@ -200,7 +200,7 @@ const Navbar = () => {
             
               <li>
                 <NavLink
-                  to="/bogs"
+                  to="/blogs"
                   className={({ isActive }) =>
                   isActive
                     ? "block py-2 px-4 transition-all text-white bg-primary  duration-700 border border-b-primary md:text-lg rounded md:bg-transparent md:text-primary  "

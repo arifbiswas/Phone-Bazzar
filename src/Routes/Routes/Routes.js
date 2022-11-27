@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import CategoriesLayout from "../../Layouts/CategoriesLayout";
 import DashboardLayout from "../../Layouts/Main/DashboardLayout";
@@ -22,6 +21,7 @@ import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import PrivateRoutes from "../Private/PrivateRoutes/PrivateRoutes";
 
 import Payment from "../../Pages/Pages/Categories/Product/Payment";
+import Blogs from "../../Pages/Pages/Blogs/Blogs";
 
 
 export const router = createBrowserRouter([
@@ -33,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path : '/',
                 element : <Home></Home>,
+            },
+            {
+                path : '/blogs',
+                element : <Blogs></Blogs>,
             },
             {
                 path : '/categories',

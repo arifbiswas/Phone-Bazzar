@@ -37,9 +37,10 @@ const MyProducts = () => {
     }
 
     const handleAddProducts = (data) =>{
-        data.postDateInfo = postDateInfo;
-        data.verified = false;
+        data.postDateInfo = postDateInfo; 
+        
         data.status = "unsold";
+
         // console.log(data);
         const picture = data.picture[0]
         const formData = new FormData()
@@ -49,6 +50,7 @@ const MyProducts = () => {
                 data.picture = res.data.data.url;
                 data.email = user.email;
                 data.name = user.displayName;
+                data.verified = user.verified;
                 axios.post("http://localhost:5000/products",data).then(res => {
             console.log(res);
             refetch()
