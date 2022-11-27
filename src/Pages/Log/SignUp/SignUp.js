@@ -6,6 +6,7 @@ import { AuthContext } from "../../../ContextApi/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
+import PageLoading from "../../Shared/PageLoading/PageLoading";
 const SignUp = () => {
   const location = useLocation()
   const from = location?.state?.from?.pathname || "/";
@@ -24,15 +25,18 @@ const SignUp = () => {
         login,
         loginWithGoogle,
         logOut,
-         updateUser
+         updateUser,
+         setLoading
   } = useContext(AuthContext);
   const handleCreateUser =(data)=>{
+    setLoading(true)
     const displayName = data.displayName;
     const Photo = data.photofile[0];
 
     createUser(data?.email ,data?.password)
     .then(result =>{
       const user = result.user;
+      
       if(user.email){
         const formData = new FormData()
         formData.append("image",Photo)
@@ -43,7 +47,8 @@ const SignUp = () => {
              displayName,
              photoURL : res?.data?.data?.url
            }
-           handleUpdateUser(updateInfo,data)
+
+           handleUpdateUser(updateInfo,data,user)
          }
         })
         .catch(e =>{
@@ -59,7 +64,7 @@ const SignUp = () => {
     })
   }
 
-  const handleUpdateUser = (updateInfo,data)=>{
+  const handleUpdateUser = (updateInfo,data,user)=>{
     // console.log(updateInfo);
    updateUser(updateInfo)
    .then(() =>{
@@ -68,15 +73,30 @@ const SignUp = () => {
     const email = data.email ;
     const role = data.role;
     const name = data.displayName; 
+   
     const dbUser = {
       email,role,name
     }
     console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
       console.log(res);
-      reset()
-      toast.success("SignUp successfully Done")
-     navigate(from,{replace : true})
+      if(res.data.acknowledged){
+        axios.get(`http://localhost:5000/dbUser?email=${email?.email}`).then(res => {
+        // console.log(res.data);
+        user.userRole = res.data.role ;
+        user.verifiedUser = res.data.verified ;
+        
+        setLoading(false)
+        // console.log( res.data);
+    }).catch(e=>{
+        console.log(e)
+        window.location.reload(false)
+    })
+    reset()
+    toast.success("SignUp successfully Done")
+    setLoading(false)
+   navigate(from,{replace : true})
+      }
     }).catch(e => {
       console.log(e)
       toast.error(e.message)
@@ -90,33 +110,62 @@ const SignUp = () => {
   }
 
   const handleGoogleLogin =()=>{
+    setLoading(true)
     loginWithGoogle(googleAuthProvider)
     .then(result =>{
       const currentUser = result.user;
 
-        // added db user 
+      // Add db user 
       const name = currentUser.displayName; 
-      const email = currentUser.email ;
-      const dbUser = {
-        email,
-        name
-      }
-      console.log(dbUser);
-      axios.post("http://localhost:5000/users",dbUser).then(res => {
+    const email = currentUser.email ;
+    
+    const dbUser = {
+      email,
+      name,
+      
+    }
+    // console.log(dbUser);
+    axios.post("http://localhost:5000/users",dbUser).then(res => {
+      // console.log(res);
+      // console.log(res.data.message);
+      setLoading(true)
+      axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
+        // console.log(res.data);
+        currentUser.userRole = res.data.role ;
+        currentUser.verifiedUser = res.data.verified ;
+        currentUser.alreadyHave = res?.data?.message;
         
-        currentUser.alreadyHave = res.data.message;
-        reset()
-        toast.success("SignUp successfully Done")
-       navigate(from,{replace : true})
-      }).catch(e => {
+        setLoading(false)
+        // console.log( res.data);
+    }).catch(e=>{
         console.log(e)
-        toast.error(e.message)
-      })
+        window.location.reload(false)
+        
+    })
+       
+        reset()
+        toast.success("Login successfully Done")
+        setLoading(false)
+        navigate(from,{replace : true})
+      
+    }).catch(e => {
+      console.log(e)
+      toast.error(e.message)
+      setLoading(false)
+    })
+
+
+    
     })
     .catch(e =>{
       console.log(e);
       toast.error(e.message)
+      setLoading(false)
     })
+  }
+
+  if(loading){
+    return <PageLoading></PageLoading>
   }
 
   return (

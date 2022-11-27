@@ -4,15 +4,17 @@ import app from '../Firebase/FirebaseConfig';
 import axios from 'axios';
 
 
+
 export const AuthContext = createContext()
 
 const auth = getAuth(app);
 
 
 const AuthProvider = ({children}) => {
+  
         const [user , setUser] = useState(null);
         const [loading , setLoading] = useState(true)
-
+       
         const createUser = (email , password) =>{
             setLoading(true)
             return createUserWithEmailAndPassword(auth,email,password)
@@ -43,29 +45,28 @@ const AuthProvider = ({children}) => {
         // set User role on and verified on API context 
         useEffect(()=>{
             const subscriber = onAuthStateChanged(auth , currentUser=>{
+                
                 setUser(currentUser)
                 // console.log("setAuth State" , currentUser);
                 setLoading(false)
-                if(currentUser){
-                    axios.get(`http://localhost:5000/dbUser?email=${currentUser?.email}`).then(res => {
-                        // console.log(res.data);
-                        currentUser.userRole = res.data.role ;
-                        currentUser.verifiedUser = res.data.verified ;
-                        // console.log( res.data);
-                    }).catch(e=>{
-                        console.log(e)
-                    })
-                }
-               
+              
+                axios.get(`http://localhost:5000/dbUser?email=${currentUser?.email}`).then(res => {
+                  // console.log(res.data);
+                  currentUser.userRole = res.data.role ;
+                  currentUser.verifiedUser = res.data.verified ;
+             
+                  console.log( res.data);
+              }).catch(e=>{
+                  console.log(e)
+              
+                  
+              })
             })
             return () =>{
                 subscriber()
+                
             }
         },[])
-
-
-        
-
     const userInfo ={
         user,
         loading,

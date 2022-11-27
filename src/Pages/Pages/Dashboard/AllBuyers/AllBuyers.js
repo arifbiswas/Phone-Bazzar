@@ -1,12 +1,30 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 const AllBuyers = () => {
 
-    const {data : allBuyers =[] } = useQuery({
+    const {data : allBuyers =[],refetch } = useQuery({
         queryKey : ["allBuyers"],
         queryFn : () => axios.get('http://localhost:5000/users?buyer=buyer').then(res =>res.data).catch(e => console.log(e))
     })
+
+    const handleDelete =(id)=>{
+        // console.log(id);
+        const confirm = window.confirm("Are you 'Delete' this User ? remember one think if you delete this User can not undo")
+        if(confirm){
+          axios.delete(`http://localhost:5000/users/${id}`).then(res => {
+            console.log(res.data);
+            refetch()
+            if(res.data.deletedCount > 0){
+                toast.success("Deleted")
+            }
+        }).catch(e =>{
+            console.log(e);
+        })
+        }
+    }
+
 
     return (
         <div className='mx-5 '>
@@ -46,7 +64,9 @@ const AllBuyers = () => {
                 </td> */}
                 
                 <td className="py-4 px-6">
-                   <button className='btn btn-sm btn-error'>Delete</button>
+                   <button 
+                   onClick={()=>handleDelete(buyer._id)}
+                   className='btn btn-sm btn-error'>Delete</button>
                 </td>
             </tr>
                     

@@ -2,30 +2,32 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-
-
-
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 import PageLoading from '../../../Shared/PageLoading/PageLoading';
 import MyBooked from '../MyBooked/MyBooked';
 import MyProducts from '../MyProducts/MyProducts';
 
 const Dashboard = () => {
-    
+    const navigate = useNavigate()
     const {user,loading} = useContext(AuthContext);
-    // console.log(user);
+    console.log(user);
 
     const {data : unverifiedUsers,refetch} = useQuery({
         queryKey : ["unverifiedUsers"],
         queryFn : ()=>axios.get("http://localhost:5000/unverified").then(res=>{
             // console.log(res.data);
+            if(!res.data){
+              navigate("/")
+            }
             return res.data;
         }).catch(e =>{
             console.log(e);
         })
     })
 
-
+    
+    
     const handleVerified =(id)=>{
         // console.log(id);
         axios.patch(`http://localhost:5000/verified/${id}`).then(res => {
@@ -39,17 +41,20 @@ const Dashboard = () => {
         })
     }
     const handleDelete =(id)=>{
+
         // console.log(id);
-        const confirm = window.confirm("Are you 'Delete' this product ? remember one think if delete this product can not undo")
-        axios.delete(`http://localhost:5000/users/${id}`).then(res => {
+        const confirm = window.confirm("Are you 'Delete' this User ? remember one think if you delete this User can not undo")
+        if(confirm){
+          axios.delete(`http://localhost:5000/users/${id}`).then(res => {
             console.log(res.data);
             refetch()
-            if(res.data.result.deletedCount > 0){
+            if(res.data.deletedCount > 0){
                 toast.success("Deleted")
             }
         }).catch(e =>{
             console.log(e);
         })
+        }
     }
 
     if(loading){

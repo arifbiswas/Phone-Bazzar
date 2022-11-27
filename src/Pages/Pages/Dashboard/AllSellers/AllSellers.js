@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import toast from "react-hot-toast";
 
 const AllSellers = () => {
-  const { data: allSellers = [] } = useQuery({
+  const { data: allSellers = [],refetch } = useQuery({
     queryKey: ["allBuyers"],
     queryFn: () =>
       axios
@@ -11,6 +12,22 @@ const AllSellers = () => {
         .then((res) => res.data)
         .catch((e) => console.log(e)),
   });
+  
+  const handleDelete =(id)=>{
+    // console.log(id);
+    const confirm = window.confirm("Are you 'Delete' this User ? remember one think if you delete this User can not undo")
+    if(confirm){
+      axios.delete(`http://localhost:5000/users/${id}`).then(res => {
+        // console.log(res.data);
+        refetch()
+        if(res.data.deletedCount > 0){
+            toast.success("Deleted")
+        }
+    }).catch(e =>{
+        console.log(e);
+    })
+    }
+}
 
   return (
     <div className="mx-5 ">
@@ -38,21 +55,23 @@ const AllSellers = () => {
             </thead>
             <tbody>
               {allSellers &&
-                allSellers.map((buyer) => (
-                  <tr key={buyer._id} className="bg-white border-b  ">
+                allSellers.map((seller) => (
+                  <tr key={seller._id} className="bg-white border-b  ">
                     <th
                       scope="row"
                       className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
                     >
-                      {buyer?.name}
+                      {seller?.name}
                     </th>
-                    <td className="py-4 px-6">{buyer?.email}</td>
+                    <td className="py-4 px-6">{seller?.email}</td>
                     {/* <td className="py-4 px-6">
                     Products count 
                 </td> */}
 
                     <td className="py-4 px-6">
-                      <button className="btn btn-sm btn-error">Delete</button>
+                      <button
+                      onClick={()=>handleDelete(seller._id)}
+                      className="btn btn-sm btn-error">Delete</button>
                     </td>
                   </tr>
                 ))}

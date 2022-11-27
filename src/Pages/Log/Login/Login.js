@@ -7,6 +7,7 @@ import { AuthContext } from "../../../ContextApi/AuthProvider";
 import toast from 'react-hot-toast';
 import axios from "axios";
 import ButtonLoader from "../../../Components/ButtonLoader/ButtonLoader";
+import PageLoading from "../../Shared/PageLoading/PageLoading";
 
 const Login = () => {
   const {register,handleSubmit,reset} = useForm()
@@ -28,6 +29,7 @@ const Login = () => {
 
 
   const handleLogin =(data)=>{
+    setLoading(true)
     console.log(data);
     login(data?.email,data.password)
     .then(result =>{
@@ -43,12 +45,11 @@ const Login = () => {
     axios.post("http://localhost:5000/users",dbUser).then(res => {
       // console.log(res);
       // console.log(res.data.message);
-      currentUser.alreadyHave = res.data.message;
-       
+      currentUser.alreadyHave = res?.data?.message;
         reset()
-        navigate(from,{replace : true})
         toast.success("Login successfully Done")
         setLoading(false)
+        navigate(from,{replace : true})
       
     }).catch(e => {
       console.log(e)
@@ -64,6 +65,7 @@ const Login = () => {
   }
 
   const handleGoogleLogin =()=>{
+    setLoading(true)
     loginWithGoogle(googleAuthProvider)
     .then(result =>{
       const currentUser = result.user;
@@ -71,19 +73,21 @@ const Login = () => {
       // Add db user 
       const name = currentUser.displayName; 
     const email = currentUser.email ;
+    
     const dbUser = {
       email,
-      name
+      name,
+      
     }
     // console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
       // console.log(res);
       // console.log(res.data.message);
       currentUser.alreadyHave = res?.data?.message;
-       
         reset()
-        navigate(from,{replace : true})
         toast.success("Login successfully Done")
+        setLoading(false)
+        navigate(from,{replace : true})
       
     }).catch(e => {
       console.log(e)
@@ -102,6 +106,10 @@ const Login = () => {
   }
 
   //  console.log(user);
+
+  if(loading){
+    return <PageLoading></PageLoading>
+  }
 
   return (
     <div>

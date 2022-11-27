@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useQuery } from '@tanstack/react-query'
-import { Link, NavLink, Outlet } from "react-router-dom";
+import React, { useContext } from "react";
+
+import {  NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../ContextApi/AuthProvider";
 
 import user1 from "../../Assets/user1.png";
 
 import DashboardNavbar from "../../Pages/Shared/Navbar/DashboardNavbar";
-import axios from "axios";
+
 import PageLoading from "../../Pages/Shared/PageLoading/PageLoading";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import ButtonLoader from "../../Components/ButtonLoader/ButtonLoader";
@@ -54,7 +54,7 @@ const DashboardLayout = () => {
            <div className="flex flex-col justify-between">
            <div className="flex flex-col gap-4">
             {
-            user?.userRole &&  user?.userRole === "admin" && <>
+            user?.userRole ===  "admin" && <>
                <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard">
                 Dashboard</NavLink>
@@ -69,7 +69,7 @@ const DashboardLayout = () => {
               </>
             }
           {
-          user?.userRole && user?.userRole === "seller" && <>
+          user?.userRole === "seller" && <>
               <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myProducts">My Products</NavLink>
             </li>
@@ -80,7 +80,7 @@ const DashboardLayout = () => {
              </>
           }
           {
-          user?.userRole && user?.userRole === "buyer" && <>
+          user?.userRole === "buyer" && <>
               <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myBooked">My Booked</NavLink>
             </li>
