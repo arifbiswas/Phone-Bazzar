@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import CategoriesLayout from "../../Layouts/CategoriesLayout";
 import DashboardLayout from "../../Layouts/Main/DashboardLayout";
@@ -5,7 +6,8 @@ import Main from "../../Layouts/Main/Main";
 import Login from "../../Pages/Log/Login/Login";
 import SignUp from "../../Pages/Log/SignUp/SignUp";
 import Cart from "../../Pages/Pages/Cart/Cart";
-import CheckOut from "../../Pages/Pages/Categories/Product/CheckOut";
+import Category from "../../Pages/Pages/Categories/Category/Category";
+
 import Product from "../../Pages/Pages/Categories/Product/Product";
 
 
@@ -13,11 +15,14 @@ import AllBuyers from "../../Pages/Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Pages/Dashboard/AllSellers/AllSellers";
 import Dashboard from "../../Pages/Pages/Dashboard/Dashboard/Dashboard";
 import MyBuyers from "../../Pages/Pages/Dashboard/MyBuyers/MyBuyers";
-import MyOrders from "../../Pages/Pages/Dashboard/MyOrders/MyOrders";
+import MyBooked from "../../Pages/Pages/Dashboard/MyBooked/MyBooked";
 import MyProducts from "../../Pages/Pages/Dashboard/MyProducts/MyProducts";
 import Home from "../../Pages/Pages/Home/Home/Home";
 import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import PrivateRoutes from "../Private/PrivateRoutes/PrivateRoutes";
+
+import Payment from "../../Pages/Pages/Categories/Product/Payment";
+
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +37,13 @@ export const router = createBrowserRouter([
             {
                 path : '/categories',
                 element : <CategoriesLayout></CategoriesLayout>,
+                children : [
+                    {
+                        path : "/categories/:name",
+                        element : <Category></Category>,
+                        loader : ({params})=>fetch(`http://localhost:5000/categories/${params.name}`)
+                    }
+                ]
             },
             {
                 path : '/login',
@@ -45,10 +57,6 @@ export const router = createBrowserRouter([
                 path : '/product/:id',
                 element : <PrivateRoutes><Product></Product></PrivateRoutes>,
                 loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
-            },
-            {
-                path : "/checkout",
-                element : <PrivateRoutes><CheckOut></CheckOut></PrivateRoutes>
             },
             {
                 path : "/cart",
@@ -81,8 +89,13 @@ export const router = createBrowserRouter([
                 element : <PrivateRoutes><AllBuyers></AllBuyers></PrivateRoutes>
             },
             {
-                path : "/dashboard/myOrders",
-                element : <PrivateRoutes><MyOrders></MyOrders></PrivateRoutes>
+                path : "/dashboard/myBooked",
+                element : <PrivateRoutes><MyBooked></MyBooked></PrivateRoutes>
+            },
+            {
+                path : "/dashboard/myBooked/:id",
+                element : <PrivateRoutes><Payment></Payment></PrivateRoutes>,
+                loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
             },
            
         ]

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" dir="ltr" lang="en-US"
+	prefix="og: https://ogp.me/ns#" >
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="en-US"
+	prefix="og: https://ogp.me/ns#" >
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="en-US"
+	prefix="og: https://ogp.me/ns#" >
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html dir="ltr" lang="en-US"
+	prefix="og: https://ogp.me/ns#" >
+<!--<![endif]-->
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript;n||console.error("WPRocket unable to document.write this: "+t);const i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+<meta name="viewport" content="width=device-width" />
+
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="//services.vlitag.com/adv1/?q=2a9c0a15b8234f09dfc6aba5e11cd711"></script><script type="rocketlazyloadscript"> var vitag = vitag || {};</script>
+<script data-ad-client="ca-pub-6752320144624820" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<meta charset="UTF-8" />
+
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+
+<link rel="pingback" href="https://www.pngmart.com/xmlrpc.php" />
+<link rel="icon" href="/files/favicon.ico" type="image/x-icon" />
+<link rel="alternate" hreflang="en" href="https://www.pngmart.com" />
+<link rel="alternate" hreflang="ar" href="https://www.pngmart.com/ar/" />
+<link rel="alternate" hreflang="de" href="https://www.pngmart.com/de/" />
+<link rel="alternate" hreflang="es" href="https://www.pngmart.com/es/" />
+<link rel="alternate" hreflang="fr" href="https://www.pngmart.com/fr/" />
+<link rel="alternate" hreflang="id" href="https://www.pngmart.com/id/" />
+<link rel="alternate" hreflang="it" href="https://www.pngmart.com/it/" />
+<link rel="alternate" hreflang="ko" href="https://www.pngmart.com/ko/" />
+<link rel="alternate" hreflang="nl" href="https://www.pngmart.com/nl/" />
+<link rel="alternate" hreflang="pt" href="https://www.pngmart.com/pt/" />
+<link rel="alternate" hreflang="ru" href="https://www.pngmart.com/ru/" />
+<link rel="alternate" hreflang="th" href="https://www.pngmart.com/th/" />
+<link rel="alternate" hreflang="tl" href="https://www.pngmart.com/tl/" />
+<link rel="alternate" hreflang="tr" href="https://www.pngmart.com/tr/" />
+
+		<!-- All in One SEO 4.2.6.1 - aioseo.com -->
+		<title>WhatsApp Verified Badge PNG File | PNG Mart</title><link rel="stylesheet" href="https://www.pngmart.com/wp-content/cache/min/1/3a8d5250ae48ae47fcff5d895f5af58a.css" media="all" data-minify="1" />
+		<meta name="description" content="Browse and download free WhatsApp Verified Badge PNG File transparent background image available in high-quality resolution in various styles and sizes." />
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+		<meta name="keywords" content="verified badge,whatsapp,whatsapp verified badge,internet,web design buttons" />
+		<link rel="canonical" href="https://www.pngmart.com/image/175644" />
+		<meta name="generator" content="All in One SEO (AIOSEO) 4.2.6.1 " />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content="PNG Mart |" />
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content="WhatsApp Verified Badge PNG File | PNG Mart" />
+		<meta property="og:description" content="Browse and download free WhatsApp Verified Badge PNG File transparent background image available in high-quality resolution in various styles and sizes." />
+		<meta property="og:url" content="https://www.pngmart.com/image/175644" />
+		<meta property="og:image" content="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" />
+		<meta property="og:image:secure_url" content="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" />
+		<meta property="og:image:width" content="300" />
+		<meta property="og:image:height" content="229" />
+		<meta property="article:published_time" content="2020-05-07T14:28:46+00:00" />
+		<meta property="article:modified_time" content="2020-05-07T14:28:46+00:00" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="WhatsApp Verified Badge PNG File | PNG Mart" />
+		<meta name="twitter:description" content="Browse and download free WhatsApp Verified Badge PNG File transparent background image available in high-quality resolution in various styles and sizes." />
+		<meta name="twitter:image" content="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" />
+		<script type="application/ld+json" class="aioseo-schema">
+			{"@context":"https:\/\/schema.org","@graph":[{"@type":"Article","@id":"https:\/\/www.pngmart.com\/image\/175644#article","name":"WhatsApp Verified Badge PNG File | PNG Mart","headline":"WhatsApp Verified Badge PNG File","author":{"@id":"https:\/\/www.pngmart.com\/image\/author\/eric#author"},"publisher":{"@id":"https:\/\/www.pngmart.com\/#organization"},"image":{"@type":"ImageObject","url":"https:\/\/www.pngmart.com\/files\/12\/WhatsApp-Verified-Badge-PNG-File.png","width":300,"height":229},"datePublished":"2020-05-07T14:28:46+00:00","dateModified":"2020-05-07T14:28:46+00:00","inLanguage":"en-US","mainEntityOfPage":{"@id":"https:\/\/www.pngmart.com\/image\/175644#webpage"},"isPartOf":{"@id":"https:\/\/www.pngmart.com\/image\/175644#webpage"},"articleSection":"Internet, Web Design Buttons, Verified Badge, WhatsApp, WhatsApp Verified Badge"},{"@type":"BreadcrumbList","@id":"https:\/\/www.pngmart.com\/image\/175644#breadcrumblist","itemListElement":[{"@type":"ListItem","@id":"https:\/\/www.pngmart.com\/#listItem","position":1,"item":{"@type":"WebPage","@id":"https:\/\/www.pngmart.com\/","name":"Home","description":"Download amazing high-quality latest PNG images transparent backgrounds images for free in various categories from Animals, Food to Entertainment PNG Images.","url":"https:\/\/www.pngmart.com\/"}}]},{"@type":"Organization","@id":"https:\/\/www.pngmart.com\/#organization","name":"PNG Mart","url":"https:\/\/www.pngmart.com\/"},{"@type":"WebPage","@id":"https:\/\/www.pngmart.com\/image\/175644#webpage","url":"https:\/\/www.pngmart.com\/image\/175644","name":"WhatsApp Verified Badge PNG File | PNG Mart","description":"Browse and download free WhatsApp Verified Badge PNG File transparent background image available in high-quality resolution in various styles and sizes.","inLanguage":"en-US","isPartOf":{"@id":"https:\/\/www.pngmart.com\/#website"},"breadcrumb":{"@id":"https:\/\/www.pngmart.com\/image\/175644#breadcrumblist"},"author":"https:\/\/www.pngmart.com\/image\/author\/eric#author","creator":"https:\/\/www.pngmart.com\/image\/author\/eric#author","image":{"@type":"ImageObject","url":"https:\/\/www.pngmart.com\/files\/12\/WhatsApp-Verified-Badge-PNG-File.png","@id":"https:\/\/www.pngmart.com\/#mainImage","width":300,"height":229},"primaryImageOfPage":{"@id":"https:\/\/www.pngmart.com\/image\/175644#mainImage"},"datePublished":"2020-05-07T14:28:46+00:00","dateModified":"2020-05-07T14:28:46+00:00"},{"@type":"WebSite","@id":"https:\/\/www.pngmart.com\/#website","url":"https:\/\/www.pngmart.com\/","name":"PNG Mart","inLanguage":"en-US","publisher":{"@id":"https:\/\/www.pngmart.com\/#organization"}}]}
+		</script>
+		<script type="rocketlazyloadscript" data-rocket-type="text/javascript" >
+			window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+			ga('create', "UA-196746120-3", 'auto');
+			ga('send', 'pageview');
+		</script>
+		<script type="rocketlazyloadscript" async src="https://www.google-analytics.com/analytics.js"></script>
+		<!-- All in One SEO -->
+
+<link rel='dns-prefetch' href='//www.pngmart.com' />
+<link rel='dns-prefetch' href='//netdna.bootstrapcdn.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<link rel="alternate" type="application/rss+xml" title="PNG Mart &raquo; Feed" href="https://www.pngmart.com/feed" />
+<link rel="alternate" type="application/rss+xml" title="PNG Mart &raquo; Comments Feed" href="https://www.pngmart.com/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="PNG Mart &raquo; WhatsApp Verified Badge PNG File Comments Feed" href="https://www.pngmart.com/image/175644/feed" />
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 0.07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+
+
+
+
+
+<link rel='stylesheet' id='googlefonts-css-css'  href='https://fonts.googleapis.com/css?family=Droid+Sans&#038;ver=6.0.1&#038;display=swap' type='text/css' media='all' />
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.pngmart.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.pngmart.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<link rel="https://api.w.org/" href="https://www.pngmart.com/wp-json/" /><link rel="alternate" type="application/json" href="https://www.pngmart.com/wp-json/wp/v2/posts/175644" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.pngmart.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.pngmart.com/wp-includes/wlwmanifest.xml" /> 
+
+<link rel='shortlink' href='https://www.pngmart.com/?p=175644' />
+    <style type="text/css">
+    
+    
+	
+		</style>
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+	jQuery(document).ready( function() {
+		jQuery('#wrapper').css('margin-top',jQuery('#navigation').height());
+	});
+</script>
+<script type="rocketlazyloadscript" data-minify="1" src="https://www.pngmart.com/wp-content/cache/min/1/ajax/libs/jquery/3.1.1/jquery.min.js?ver=1667029271"></script> 
+</head>
+
+<body class="post-template-default single single-post postid-175644 single-format-standard bg pngmart singular">
+  <style>
+._bsa_flexbar .flexbar-logo img { background: none; }
+</style><script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<script>
+(function(){
+	if(typeof _bsa !== 'undefined' && _bsa) {
+  		// format, zoneKey, segment:value, options
+  		_bsa.init('flexbar', 'CK7DC2JN', 'placement:pngmartcom');
+  	}
+})();
+</script>
+	<script type="rocketlazyloadscript" async data-cfasync="false">
+       const url = new URL(window.location.href);
+       const clickID = url.searchParams.get("click_id");
+       const sourceID = url.searchParams.get("source_id");
+
+       const s = document.createElement("script");
+       s.dataset.cfasync = "false";
+       s.src = "https://system-notify.app/f/sdk.js?z=413224";
+       s.onload = (opts) => {
+           opts.zoneID = 413224;
+           opts.extClickID = clickID;
+           opts.subID1 = sourceID;
+           opts.actions.onPermissionGranted = () => {};
+           opts.actions.onPermissionDenied = () => {};
+           opts.actions.onAlreadySubscribed = () => {};
+           opts.actions.onError = () => {};
+       };
+       document.head.appendChild(s);
+</script>
+		<div id="navigation"  role="banner">
+
+			<nav id="access" class="container_16 containermargin" role="navigation">
+			<div class="nav1">
+				<h3 class="assistive-text">Main menu</h3>
+								<div class="skip-link screen-reader-text"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+                <div id="mobilemenu" class="notonscreen">
+                    <div align="center" style="padding:10px;">
+                    	<a href="https://www.pngmart.com/" title="PNG Mart">
+                    	                        	        <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%2030'%3E%3C/svg%3E" alt="PNG Mart" width="200" height="30" data-lazy-src="/logo.jpg"><noscript><img src="/logo.jpg" alt="PNG Mart" width="200" height="30"></noscript>
+                    	                            </a>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="sf-logomenu notonmobile">
+                    <p>
+                    	<a href="https://www.pngmart.com/">
+                    		                    	        <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%2030'%3E%3C/svg%3E" alt="PNG Mart" width="200" height="30" data-lazy-src="/logo.jpg"><noscript><img src="/logo.jpg" alt="PNG Mart" width="200" height="30"></noscript>
+                    	                            </a>
+                    </p>
+                </div>
+								<div class="menu-top-container"><ul id="primary" class="s_style sf-menu sf-js-enabled sf-arrows"><li id="menu-item-102574" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-102574"><a href="/">Home</a></li>
+<li id="menu-item-102573" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102573"><a href="https://www.pngmart.com/categories">Categories</a></li>
+<li id="menu-item-130852" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-130852"><a href="https://www.pngmart.com/contact">Contact</a></li>
+<li id="menu-item-335071" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-335071"><a href="https://www.pngmart.com/upload">Upload</a></li>
+</ul></div>
+				<ul id="iconmenu" class="sf-menu sf-js-enabled">
+                    <li id="searchicon" class="notonmobile icon-search"><a href="" class="sf-with-ul"></a>
+                        <ul id="searchul" class="sub-menu" style="left: auto; right: 0px;">
+                            <li><form role="search" method="get" id="searchform" class="searchform" action="https://www.pngmart.com">
+    <div>
+    <label class="screen-reader-text" for="s">Search for:</label>
+    <input type="text" value="" name="s" id="s">
+    <input type="submit" id="searchsubmit" value="Go">
+    </div>
+</form>
+</li>
+                        </ul>
+                    </li>
+                </ul>								  
+				<div style="clear:both;"></div>
+			</div>
+			</nav><!-- #access -->
+
+	</div><!-- #navigation -->
+	
+	
+    <div id="wrapper" class="hfeed">
+			    <div id="contentcontainer" class="container_16 containermargin">
+        
+
+			<div id="content" class="grid_10" role="main">
+
+						
+	<header>        
+<div class="breadcrumbs" typeof="BreadcrumbList" vocab="http://schema.org/">  </div>
+		<h1 class="entry-title">WhatsApp Verified Badge PNG File</h1>
+	</header><!-- .entry-header -->
+
+
+	<div class="entry-content">
+
+<p>Browse and download free WhatsApp Verified Badge PNG File. This image categorized under Internet Web Design Buttons  tagged in Verified Badge, WhatsApp, WhatsApp Verified Badge,  you can use this image freely on your designing projects. The pixel of this PNG transparent background is 300x229 and size is 28 Kb. It is available in high-quality resolution for personal use.
+		</p>
+		
+<p><center><a href="https://www.pngmart.com/image/175644/png/175643"  title="WhatsApp Verified Badge PNG File" alt="WhatsApp Verified Badge PNG File" target="_blank" ><img width="300" height="229" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20229'%3E%3C/svg%3E" class="attachment-full size-full wp-post-image" alt="WhatsApp Verified Badge PNG File" data-lazy-srcset="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png 300w, https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File-200x153.png 200w" data-lazy-sizes="(max-width: 300px) 100vw, 300px" data-lazy-src="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" /><noscript><img width="300" height="229" src="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" class="attachment-full size-full wp-post-image" alt="WhatsApp Verified Badge PNG File" srcset="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png 300w, https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File-200x153.png 200w" sizes="(max-width: 300px) 100vw, 300px" /></noscript></a></center><br>		<br>
+		<center><span style="font-size:0.8em">Advertisement</span><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6752320144624820"
+     crossorigin="anonymous"></script>
+<!-- pngmart horizontal responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6752320144624820"
+     data-ad-slot="3885404392"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></center><br><strong>Title:</strong> WhatsApp Verified Badge PNG File<br><strong>PNG Image Dimension:</strong> 300x229<br><strong>File Size:</strong> 28 Kb<br>
+<strong>Image Type:</strong> .png<br>
+<strong>Posted on:</strong> May 7th, 2020<br>
+<strong>Category:</strong> <a href="https://www.pngmart.com/image/category/internet-png" rel="category tag">Internet</a>, <a href="https://www.pngmart.com/image/category/internet-png/web-design-buttons" rel="category tag">Web Design Buttons</a><br>
+<strong>Tags: <a href="https://www.pngmart.com/image/tag/verified-badge" rel="tag">Verified Badge</a>, <a href="https://www.pngmart.com/image/tag/whatsapp" rel="tag">WhatsApp</a>, <a href="https://www.pngmart.com/image/tag/whatsapp-verified-badge" rel="tag">WhatsApp Verified Badge</a></strong>
+	<br/ >
+	<strong>DMCA</strong>: <a href="/dmca/" target="_blank">Report</a>
+	<br/ >
+	<br>
+	<b>Image License:</b>
+<br>
+✅Free for personal use only
+<br>
+❌Commercial Usage: Not allowed
+	<br>
+	<center><a href="https://www.pngmart.com/files/12/WhatsApp-Verified-Badge-PNG-File.png" class="download" download>Download PNG File 📥</a></center>
+<br>
+<strong style="text-align: center; font-size: 16px;">Attribution required, copy the below link on the web where you will be using this PNG image.</strong><br>
+<br />
+                    <label>Website:</label>
+                    <input class="boxround" type="text" size="45" value="<a href=https://www.pngmart.com/image/175644 target=&quot;_blank&quot;>WhatsApp Verified Badge PNG File</a>" onclick="this.focus(); this.select();">
+				<br />
+                    <label>Forums:</label>
+                    <input class="boxround" type="text" size="45" value="[url=https://www.pngmart.com/image/175644 WhatsApp Verified Badge PNG File[/url]" onclick="this.focus(); this.select();"><br />
+</p>
+<h2 class="related-title">More PNG Images</h2>
+			
+<div class="relpost-thumb-wrapper"><!-- filter-class --><div class="relpost-thumb-container"><div style="clear: both"></div><div style="clear: both"></div><!-- relpost-block-container --><div class="relpost-block-container">
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175038"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge PNG Transparent Image" alt="Facebook Verified Badge PNG Transparent Image" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-PNG-Transparent-Image-420x236.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175548"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="TikTok Verified Badge PNG Image" alt="TikTok Verified Badge PNG Image" style=" background: transparent url(https://www.pngmart.com/files/12/TikTok-Verified-Badge-PNG-Image-420x83.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175040"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge Transparent PNG" alt="Facebook Verified Badge Transparent PNG" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-Transparent-PNG-420x236.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175036"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge PNG Photos" alt="Facebook Verified Badge PNG Photos" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-PNG-Photos-420x203.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175034"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge PNG Image" alt="Facebook Verified Badge PNG Image" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-PNG-Image-282x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175550"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="TikTok Verified Badge PNG Photos" alt="TikTok Verified Badge PNG Photos" style=" background: transparent url(https://www.pngmart.com/files/12/TikTok-Verified-Badge-PNG-Photos-279x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175032"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge PNG File" alt="Facebook Verified Badge PNG File" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-PNG-File-279x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175030"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Facebook Verified Badge PNG Clipart" alt="Facebook Verified Badge PNG Clipart" style=" background: transparent url(https://www.pngmart.com/files/12/Facebook-Verified-Badge-PNG-Clipart-359x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175546"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="TikTok Verified Badge PNG File" alt="TikTok Verified Badge PNG File" style=" background: transparent url(https://www.pngmart.com/files/12/TikTok-Verified-Badge-PNG-File-420x221.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175132"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Instagram Verified Badge PNG Photos" alt="Instagram Verified Badge PNG Photos" style=" background: transparent url(https://www.pngmart.com/files/12/Instagram-Verified-Badge-PNG-Photos-420x236.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175138"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Instagram Verified Badge Transparent PNG" alt="Instagram Verified Badge Transparent PNG" style=" background: transparent url(https://www.pngmart.com/files/12/Instagram-Verified-Badge-Transparent-PNG-281x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+<a class="relpost-block-single" href="https://www.pngmart.com/image/175592"><div data-bg="/png.png" class="rocket-lazyload" style="width: 200px; height: 200px;  "><div class="relpost-block-single-image" title="Twitter Verified Badge PNG File" alt="Twitter Verified Badge PNG File" style=" background: transparent url(https://www.pngmart.com/files/12/Twitter-Verified-Badge-PNG-File-405x279.png) no-repeat scroll 0% 0%; width: 200px; height: 200px; "></div></div></a>
+
+
+</div><!-- close relpost-block-container --><div style="clear: both"></div></div><!-- close filter class --></div>
+
+	</div><!-- .entry-content -->
+	
+
+					
+			</div><!-- #content -->
+
+		
+			<div id="sidebar" class="grid_6" role="complementary">
+	<div id="primary" class="widget-area">
+		<div class="xoxo">
+
+			<aside id="search-2" class="widget widget_search"><h3 class="widget-title">Search PNG File</h3><form role="search" method="get" id="searchform" class="searchform" action="https://www.pngmart.com">
+    <div>
+    <label class="screen-reader-text" for="s">Search for:</label>
+    <input type="text" value="" name="s" id="s">
+    <input type="submit" id="searchsubmit" value="Go">
+    </div>
+</form>
+</aside><aside id="custom_html-15" class="widget_text widget widget_custom_html"><h3 class="widget-title">Connect with Us</h3><div class="textwidget custom-html-widget"><div class="textwidget custom-html-widget"><a href="https://www.facebook.com/pngmart" class="fa fa-facebook" target="_blank" rel="noopener"></a>
+<a href="https://www.twitter.com/pngmart" class="fa fa-twitter" target="_blank" rel="noopener"></a>
+<a href="https://feeds.feedburner.com/PngMart" class="fa fa-rss" target="_blank" rel="noopener"></a>
+</div></div></aside><aside id="custom_html-14" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><center><span style="font-size:0.8em">Advertisement</span><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- mart link ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6752320144624820"
+     data-ad-slot="5057209545"
+     data-ad-format="link"
+     data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></center></div></aside><aside id="custom_html-18" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><h3 class="widget-title">Recently Searched PNG</h3>
+<a href="https://www.pngmart.com/image/tag/reptile" target="blank" class="tagbutton" rel="noopener">
+Reptile</a><a href="https://www.pngmart.com/image/tag/stick-figure" target="blank" class="tagbutton" rel="noopener">
+Stick Figure</a><a href="https://www.pngmart.com/image/tag/easter" target="blank" class="tagbutton" rel="noopener">
+Easter</a><a href="https://www.pngmart.com/image/tag/arrow" target="blank" class="tagbutton" rel="noopener">
+Arrow</a><a href="https://www.pngmart.com/image/tag/girl" target="blank" class="tagbutton" rel="noopener">
+Girl</a><a href="https://www.pngmart.com/image/tag/heart" target="blank" class="tagbutton" rel="noopener">
+Heart</a><a href="https://www.pngmart.com/image/tag/final-fantasy" target="blank" class="tagbutton" rel="noopener">
+Final Fantasy</a><a href="https://www.pngmart.com/image/tag/easter-eggs" target="blank" class="tagbutton" rel="noopener">
+Easter Eggs</a><a href="https://www.pngmart.com/image/tag/american-football-team" target="blank" class="tagbutton" rel="noopener">
+American Football Team</a><a href="https://www.pngmart.com/image/tag/antique" target="blank" class="tagbutton" rel="noopener">
+Antique</a><a href="https://www.pngmart.com/image/tag/tekken" target="blank" class="tagbutton" rel="noopener">
+Tekken</a><a href="https://www.pngmart.com/image/tag/christmas" target="blank" class="tagbutton" rel="noopener">
+Christmas</a><a href="https://www.pngmart.com/image/tag/disney" target="blank" class="tagbutton" rel="noopener">
+Disney</a><a href="https://www.pngmart.com/image/tag/hat" target="blank" class="tagbutton" rel="noopener">
+Hat</a><a href="https://www.pngmart.com/image/tag/chair" target="blank" class="tagbutton" rel="noopener">
+Chair</a><a href="https://www.pngmart.com/image/tag/toy" target="blank" class="tagbutton" rel="noopener">
+Toy</a><a href="https://www.pngmart.com/image/tag/star-wars" target="blank" class="tagbutton" rel="noopener">
+Star Wars</a><a href="https://www.pngmart.com/image/tag/dog" target="blank" class="tagbutton" rel="noopener">
+Dog</a><a href="https://www.pngmart.com/image/tag/flowers" target="blank" class="tagbutton" rel="noopener">
+Flowers</a><a href="https://www.pngmart.com/image/tag/naruto" target="blank" class="tagbutton" rel="noopener">
+Naruto</a><a href="https://www.pngmart.com/image/tag/halloween" target="blank" class="tagbutton" rel="noopener">
+Halloween</a><a href="https://www.pngmart.com/image/tag/abstract" target="blank" class="tagbutton" rel="noopener">
+Abstract</a><a href="https://www.pngmart.com/image/tag/wwe" target="blank" class="tagbutton" rel="noopener">
+WWE</a><a href="https://www.pngmart.com/image/tag/spring" target="blank" class="tagbutton" rel="noopener">
+Spring</a><a href="https://www.pngmart.com/image/tag/tv-shows" target="blank" class="tagbutton" rel="noopener">
+TV Shows</a></div></aside><aside id="custom_html-17" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><div id='vi-sticky-ad'>
+              <div id='vi-ad'>
+                <div class="height_250_ad">
+                  <div class="adsbyvli" style="width:300px; height:250px" data-ad-slot="vi_1141143424"></div> <script type="rocketlazyloadscript">(vitag.Init = window.vitag.Init || []).push(function () { viAPItag.display("vi_1141143424") })</script>
+                </div>
+                <div class="text-ads"
+                  style="text-align: center; font-size: 12px; padding-top: 10px; padding-bottom: 10px; text-transform: uppercase;">
+                  Advertisement</div>
+                <div class="height_250_ad">
+                  <div class="adsbyvli" style="width:300px; height:250px" data-ad-slot="vi_1141143424"></div> <script type="rocketlazyloadscript">(vitag.Init = window.vitag.Init || []).push(function () { viAPItag.display("vi_1141143424") })</script>
+                </div>
+              </div>
+            </div>
+            <script type="rocketlazyloadscript">
+              if (window.innerWidth > 900) {
+                var adElemSticky = document.getElementById('vi-sticky-ad');
+                window.onscroll = function () {
+                  var adElem = document.getElementById('vi-ad');
+                  var rect = adElemSticky.getBoundingClientRect();
+                  adElemSticky.style.width = rect.width + 'px';
+                  adElemSticky.style.height = rect.height + 'px';
+                  console.log(rect);
+                  console.log(rect.top);
+                  if (rect.top <= 0) {
+                    adElem.style.position = 'fixed';
+                    adElem.style.top = '15px';
+                    adElem.style.zIndex = '2147483647';
+                    adElem.style.width = rect.width + 'px';
+                    adElem.style.height = rect.height + 'px';
+                  } else {
+                    adElem.style.position = '';
+                    adElem.style.top = '';
+                    adElem.style.zIndex = '';
+                    adElem.style.width = '';
+                    adElem.style.height = '';
+                  }
+                };
+              }
+              (function () {
+                var adElemSticky = document.getElementById('vi-sticky-ad');
+                var width = window.innerWidth;
+                if (width <= 900) {
+                  adElemSticky.innerHTML = '';
+                }
+              }());
+            </script></div></aside>		</div><!-- .xoxo -->
+	</div><!-- .widget-area -->
+</div><!-- #sidebar .widget-area -->
+<div style="clear:both;"></div>
+
+	</div><!-- #contentcontainer -->
+
+</div><!-- #wrapper -->
+
+<div id="footer">
+	<div id="colophon" class="container_16 containermargin" role="contentinfo">
+		<div id="footer-info">
+			<div id="copyright">&copy; 2016 - 2022. <a href="/" title="PNG Mart">PNG Mart</a></div>
+			<div class="menu footernav"><ul id="menu-footer-navigation" class="menu"><li id="menu-item-47" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-47"><a href="/">Home</a></li>
+<li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://www.pngmart.com/about">About</a></li>
+<li id="menu-item-49" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://www.pngmart.com/contact">Contact</a></li>
+<li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://www.pngmart.com/copyright-policy">Copyright</a></li>
+<li id="menu-item-189723" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-189723"><a href="https://www.pngmart.com/cookie-policy">Cookie Policy</a></li>
+<li id="menu-item-51" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-51"><a href="https://www.pngmart.com/privacy-policy">Privacy</a></li>
+<li id="menu-item-52" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52"><a href="https://www.pngmart.com/terms-conditions">Terms &#038; Conditions</a></li>
+<li id="menu-item-142703" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-142703"><a href="/upload">Upload PNG</a></li>
+<li id="menu-item-59360" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-59360"><a href="/sitemap.xml/">Sitemap</a></li>
+</ul></div>		</div>
+		<div class="clear"></div>
+		<div id="site-generator">
+			
+		</div>
+	</div><!-- #colophon -->
+	<div style="clear:both;"></div>
+</div><!-- #footer -->
+
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.pngmart.com/wp-includes/js/comment-reply.min.js?ver=6.0.1' id='comment-reply-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin|\/logout|\/wp-login.php","usesTrailingSlash":"","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/www.pngmart.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://www.pngmart.com/wp-content/cache/min/1/wp-content/themes/pngmart/js/html5.js?ver=1667029271' id='htlml5-js'></script>
+<script type='text/javascript' id='ivory-search-scripts-js-extra'>
+/* <![CDATA[ */
+var IvorySearchVars = {"is_analytics_enabled":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.pngmart.com/wp-content/plugins/add-search-to-menu/public/js/ivory-search.min.js?ver=4.8.1' id='ivory-search-scripts-js'></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.pngmart.com/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script></body>
+</html>

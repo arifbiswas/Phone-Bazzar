@@ -67,6 +67,10 @@ const DashboardLayout = () => {
             {
             userRole &&  userRole === "admin" && <>
                <li>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard">
+                Dashboard</NavLink>
+            </li>
+               <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/allSellers">
                 All Sellers</NavLink>
             </li>
@@ -89,7 +93,7 @@ const DashboardLayout = () => {
           {
           userRole && userRole === "buyer" && <>
               <li>
-              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myOrders">My Orders</NavLink>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/myBooked">My Booked</NavLink>
             </li>
              </>
           }

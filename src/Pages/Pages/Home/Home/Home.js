@@ -2,18 +2,36 @@ import React from 'react';
 import Announcement from '../Announcement/Announcement';
 import Activities from '../Activities/Activities';
 import Banner from '../Banner/Banner';
-import Carousel from '../Carousel/Carousel';
+
 import Categories from '../Categories/Categories';
 import Welcome from '../Welcome/Welcome';
+import Advertisement from '../Advertisement/Advertisement';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 
 const Home = () => {
+
+    const {data : advertisements=[] , refetch} = useQuery({
+        queryKey : ['advertisements'],
+        queryFn : ()=> axios.get('http://localhost:5000/advertisement').then(res => {
+          // console.log(res.data);
+          return res.data;
+    
+        }).catch(e => {
+          console.log(e);
+        })
+      })
+
+
     return (
         <section>
             <Announcement></Announcement>
             <Welcome></Welcome>
             <Banner></Banner>
-            <Carousel></Carousel>
+            {
+                advertisements.length >0  && <Advertisement advertisements={advertisements}></Advertisement>
+            }
             <Categories></Categories>
             <Activities></Activities>
         </section>

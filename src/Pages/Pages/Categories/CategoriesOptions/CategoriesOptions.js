@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from '@tanstack/react-query'
-
 import GeneralModal from "../../../../Components/GeneralModal/GeneralModal";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Products from "../Porducts/Products";
 import { AuthContext } from "../../../../ContextApi/AuthProvider";
 import PageLoading from "../../../Shared/PageLoading/PageLoading";
+import { Link, Outlet } from "react-router-dom";
 
 
 const CategoriesOptions = () => {
   const {user,loading , setLoading} = useContext(AuthContext)
   const [modalClose, setModalClose] = useState(false);
   const { register, handleSubmit, reset } = useForm();
-  const [products , setProducts] = useState([]);
+ 
 
+ 
   // All categories 
   const {data : categories =[] , refetch} = useQuery({
     queryKey : ["categories"],
@@ -46,6 +46,7 @@ const CategoriesOptions = () => {
           brandLogo: data?.data?.url,
         };
         axios.post("http://localhost:5000/categories", newCategory)
+        setLoading(true)
           .then((res) => {
             console.log(res.data);
             if (res.data.acknowledged) {
@@ -63,34 +64,12 @@ const CategoriesOptions = () => {
       });
   };
 
-  
-   useEffect(()=>{
-     // console.log(name);
-     setLoading(true)
-     axios.get(`http://localhost:5000/products`).then(res => {
-      // console.log(res.data);
-      setProducts(res.data)
-      setLoading(false)
-    }).catch(e =>{
-      console.log(e);
-    })
-   },[])
-  
-  const handleProducts =(name)=>{
-    
-    // console.log(name);
-    axios.get(`http://localhost:5000/products?name=${name}`).then(res => {
-      // console.log(res.data);
-      setProducts(res.data)
-      setLoading(false)
-    }).catch(e =>{
-      console.log(e);
-    })
-  }
 
   if(loading){
     return <PageLoading></PageLoading>
   }
+
+  // console.log(user.categoryName);
 
   return (
     <div className=" p-4 my-5  bg-white">
@@ -115,12 +94,11 @@ const CategoriesOptions = () => {
             key={category._id} 
           className="relative transition-all duration-200 shadow-lg hover:p-3 p-4 lg:p-10 rounded-lg  hover:shadow flex flex-col justify-center items-center">
             <img src={category?.brandLogo} className="rounded-md  w-full h-[150px] bg-white" alt="" />
-
-            <button 
-            onClick={()=>handleProducts(category?.categoryName)}
-            className=" py-4 w-full rounded-md mt-12 bg-primary text-gray-200 font-bold ">
+            <Link 
+            to={`/categories/${category?.categoryName}`}
+            className="btn btn-primary py-4 w-full rounded-md mt-12 bg-primary text-gray-200 font-bold ">
             {category?.categoryName}
-            </button>
+            </Link>
           
         </div> )
         }
@@ -128,12 +106,11 @@ const CategoriesOptions = () => {
       </div>
       <div>
         <h1 className="mt-5 text-primary mx-8 font-bold text-1xl">Products</h1>
-        {
-          products && products.map(product =>  <Products 
-            key={product._id}
-            product={product}
-            ></Products>)
-        }
+     
+         {/* Outlet of products  */}
+         <Outlet></Outlet>
+           {/* Outlet of products  */}
+
         </div>
       {modalClose && (
         <GeneralModal

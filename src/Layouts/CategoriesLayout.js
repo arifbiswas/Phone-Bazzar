@@ -6,7 +6,6 @@ const CategoriesLayout = () => {
     return (
         <div>
             <CategoriesOptions></CategoriesOptions>
-            <Outlet></Outlet>
         </div>
     );
 };

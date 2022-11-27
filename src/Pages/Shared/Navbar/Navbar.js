@@ -1,11 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaMobile, FaMobileAlt, FaShoppingCart } from "react-icons/fa";
 import { AuthContext } from "../../../ContextApi/AuthProvider";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import PageLoading from "../PageLoading/PageLoading";
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const {user ,logOut,setLoading} = useContext(AuthContext);
+  const {user ,logOut,setLoading,loading} = useContext(AuthContext);
 
   const [profileOpen, setProfileOpen] = useState(false);
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -16,6 +19,26 @@ const Navbar = () => {
     setLoading(false)
     logOut()
   }
+
+    // const [carts , setCarts] = useState([]);
+    // useEffect(()=>{
+    //     axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
+    //         // console.log(res.data);
+    //         setCarts(res.data)
+    //     }).catch(e => console.log(e))
+    // },[user?.email])
+    const {data : carts, refetch} = useQuery({
+      queryKey : ["cart",user?.email],
+      queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
+                // console.log(res.data);
+                return res.data
+            }).catch(e => console.log(e))
+    })
+
+    if(loading){
+      refetch()
+      return <PageLoading></PageLoading>
+    }
 
   return (
     <header className="shadow-md">
@@ -41,6 +64,7 @@ const Navbar = () => {
                 {/* Cart  */}
                 {
                   user?.userRole === "buyer" && <Link to="/cart" className="btn btn-primary text-lg">
+                    <span className="absolute -top-3 -right-3 text-white border border-white bg-primary px-3 rounded-full ">{carts?.length}</span>
                   <FaShoppingCart></FaShoppingCart>
                   </Link>
                 }
@@ -106,7 +130,8 @@ const Navbar = () => {
                 {
                   user?.userRole === "buyer" && <li>
                   <div className=" via-current flex justify-center lg:hidden border-t px-2 py-3">
-                  <Link to="/cart" className="btn btn-primary w-full text-lg">
+                  <Link to="/cart" className="btn btn-primary w-full text-lg relative">
+                  <span className="absolute top-2 right-2 text-white border border-white bg-primary px-3 rounded-full ">{carts?.length}</span>
                   <FaShoppingCart></FaShoppingCart>
                   </Link>
                 </div>

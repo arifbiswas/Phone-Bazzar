@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import verified from '../../../../Assets/verified1.png'
 
 const Products = ({product}) => {
   return (
@@ -14,6 +15,8 @@ const Products = ({product}) => {
         </figure>
         <div className="card-body flex-1">
           <h2 className="card-title text-primary">{product?.productName}</h2>
+          <div className='text-gray-400 flex items-center'> {product?.verified ?<div className='flex items-center'> <h1>verified</h1> <img src={verified} className="w-12" alt="" /></div> : "Unverified"}
+          </div>
           <p className="text-sm text-gray-500 ">Post by {product?.name} 
           {/* badge */}
           <small className="ml-3">{product?.postDateInfo?.postDay} {product?.postDateInfo?.postTime}</small><span>{}</span></p>
@@ -29,7 +32,7 @@ const Products = ({product}) => {
             }</span> 
           </p>
           <div className="card-actions justify-start">
-            <Link to={`/product/${product._id}`} className="btn btn-primary">Detail</Link>
+            <Link to={`/product/${product?._id}`} className="btn btn-primary">Detail</Link>
           </div>
         </div>
       </div>

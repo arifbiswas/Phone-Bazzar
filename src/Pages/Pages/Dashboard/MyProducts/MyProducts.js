@@ -3,12 +3,13 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../../../Components/ConfirmationModal/ConfirmationModal';
 import GeneralModal from '../../../../Components/GeneralModal/GeneralModal';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext);
-
+    // const [yes , setYes] = useState(false)
     const {data : myProducts =[] , refetch} = useQuery({
         queryKey : ["myProducts",user?.email],
         queryFn : ()=>fetch(`http://localhost:5000/products?email=${user?.email}`)
@@ -37,7 +38,9 @@ const MyProducts = () => {
 
     const handleAddProducts = (data) =>{
         data.postDateInfo = postDateInfo;
-        console.log(data);
+        data.verified = false;
+        data.status = "unsold";
+        // console.log(data);
         const picture = data.picture[0]
         const formData = new FormData()
         formData.append("image",picture)
@@ -72,6 +75,25 @@ const MyProducts = () => {
       return data
     })
 })
+    // console.log(yes);
+    
+    const handleAdvertize =(id)=>{
+    //    console.log(id);
+    const advertise = {
+        advertisement : true
+    }
+       const confirm = window.confirm("Are you run advertisement")
+       if(confirm){
+        axios.patch(`http://localhost:5000/advertisement/${id}`,advertise).then(res =>{
+            // console.log(res.data);
+            if(res.data.modifiedCount > 0){
+                toast.success("Advertise is Active")
+            }
+        }).catch(e => {
+            console.log(e);
+        })
+       }
+    }
 
     return (
         <div className='mx-5 '>
@@ -135,8 +157,15 @@ const MyProducts = () => {
                     {myProduct?.postDateInfo?.postDay}
                 </td>
                 
-                <td className="py-4 px-6">
-                   <button className='btn btn-sm btn-error'>Delete</button>
+                <td className="py-4 px-6 relative">
+                    <p className='absolute animate-pulse text-5xl -top-1 left-3 '>{myProduct?.advertisement ?<span className='bg-green-500  p-3 mask mask-circle '></span> : ""}</p>
+                   {myProduct?.status === "available" ? <span
+                    className='btn btn-primary w-full' ><button
+                   disabled={myProduct?.advertisement}
+                   onClick={()=>handleAdvertize(myProduct?._id)}
+                   >{myProduct?.advertisement ?"Advertisement Active" :"Available"}</button></span> : <button className='btn btn-secondary w-full' disabled>Sold</button>
+                   
+                   }
                 </td>
             </tr>
                     
@@ -166,7 +195,7 @@ const MyProducts = () => {
       description={{label : "Description ", register : "description",placeholder : "description...."}}
       imageFiled={{label : "Products Picture", register : "picture"}}
       ></GeneralModal> }
-
+       
         </div>
     );
 };

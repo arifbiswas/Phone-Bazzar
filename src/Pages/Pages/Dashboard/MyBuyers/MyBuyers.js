@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const MyBuyers = () => {
-    const {data : allBuyers =[] } = useQuery({
-        queryKey : ["allBuyers"],
-        queryFn : () => axios.get('http://localhost:5000/users?buyer=buyer').then(res =>res.data).catch(e => console.log(e))
+    const {user} = useContext(AuthContext);
+    const {data : myBuyers =[] } = useQuery({
+        queryKey : ["myBuyers"],
+        queryFn : () => axios.get(`http://localhost:5000/booked?email=${user?.email}`).then(res =>res.data).catch(e => console.log(e))
     })
 
     return (
@@ -23,31 +25,32 @@ const MyBuyers = () => {
                 <th scope="col" className="py-3 px-6">
                     Name
                 </th>
-                {/* <th scope="col" className="py-3 px-6">
-                    Total Products
-                </th> */}
+                <th scope="col" className="py-3 px-6">
+                    Number
+                </th>
                 
                 <th scope="col" className="py-3 px-6">
-                    Action
+                 Meet Location
                 </th>
             </tr>
         </thead>
         <tbody>
             {
-                allBuyers && allBuyers.map(buyer => 
+                myBuyers && myBuyers.map(buyer => 
                     <tr key={buyer._id} className="bg-white border-b  ">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    {buyer?.email}
+                    {buyer?.buyerEmail}
                 </th>
                 <td className="py-4 px-6">
-                {buyer?.name}
+                {buyer?.buyerName}
                 </td>
-                {/* <td className="py-4 px-6">
-                    Products count 
-                </td> */}
+                <td className="py-4 px-6">
+                    {buyer?.buyerNumber}
+                </td>
                 
                 <td className="py-4 px-6">
-                   <button className='btn btn-sm btn-error'>Delete</button>
+                    {buyer?.location}
+                   {/* <button className='btn btn-sm btn-error'>Delete</button> */}
                 </td>
             </tr>
                     

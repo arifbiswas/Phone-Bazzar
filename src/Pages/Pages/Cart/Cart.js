@@ -1,20 +1,40 @@
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import ConfirmationModal from '../../../Components/ConfirmationModal/ConfirmationModal';
 import { AuthContext } from '../../../ContextApi/AuthProvider';
 import PageLoading from '../../Shared/PageLoading/PageLoading';
 
 const Cart = () => {
 
     const {user, loading} = useContext(AuthContext);
-    const [carts , setCarts] = useState([]);
-    useEffect(()=>{
-        axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
-            // console.log(res.data);
-            setCarts(res.data)
-        }).catch(e => console.log(e))
-    },[user?.email])
-    // http://localhost:5000/carts?email=nosi@gmail.com
+    const {data : carts, refetch} = useQuery({
+        queryKey : ["cart",user?.email],
+        queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
+                  // console.log(res.data);
+                  return res.data
+              }).catch(e => console.log(e))
+      })
+
+    const handleDelete = (id) =>{
+        const confirm = window.confirm("Are sure that 'Delete' this product from cart ?")
+        // console.log(id);
+        if(confirm){
+            axios.delete(`http://localhost:5000/carts/${id}`).then(res =>{
+                if(res.data.deletedCount > 0){
+                    // console.log(res.data)
+                    toast.success("Delete From Cart")
+                    refetch()
+                    
+                }
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+       
+    }
 
     if(loading){
         return <PageLoading></PageLoading>
@@ -37,10 +57,10 @@ const Cart = () => {
                 <th scope="col" className="py-3 px-6">
                       Category
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 ">
                     Price 
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 flex justify-center items-center">
                     Action
                 </th>
             </tr>
@@ -63,8 +83,12 @@ const Cart = () => {
                 <td className="py-4 px-6">
                 {cart?.productPrice} .Tk
                 </td>
-                <td className="py-4 px-6">
-                   <Link to="/checkout" className='btn btn-sm btn-primary'>Book Now</Link>
+                <td className="py-4 px-6 flex justify-center items-center">
+                   <Link to={`/product/${cart?.products_id}`} className='btn btn-sm btn-primary'>Book Now</Link>
+                   <label
+                   htmlFor="confirmation-modal"
+                   onClick={()=>handleDelete(cart?._id)}
+                   className='btn btn-sm btn-error ml-3'>Delete</label>
                 </td>
             </tr>
                     
@@ -77,6 +101,8 @@ const Cart = () => {
 </div>
 
             </div>
+             
+            
         </div>
     );
 };
