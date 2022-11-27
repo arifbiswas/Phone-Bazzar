@@ -3,7 +3,7 @@ import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const Welcome = () => {
   const {user} = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
     return (
         <div className='my-12'>
              <div>

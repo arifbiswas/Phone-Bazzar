@@ -15,12 +15,12 @@ const MyProducts = () => {
         queryFn : ()=>fetch(`http://localhost:5000/products?email=${user?.email}`)
         .then(res => res.json())
         .then(data =>{
-          // console.log(data)
+        //   console.log(data)
           return data
         })
     })
 
-
+    // console.log(user);
     // Add Products 
     
     
@@ -39,7 +39,11 @@ const MyProducts = () => {
     const handleAddProducts = (data) =>{
         data.postDateInfo = postDateInfo; 
         
-        data.status = "unsold";
+        data.status = "available";
+        data.advertisement = false;
+        data.email = user?.email;
+        data.name = user?.displayName;
+        data.verified = user?.verifiedUser;
 
         // console.log(data);
         const picture = data.picture[0]
@@ -48,9 +52,7 @@ const MyProducts = () => {
         axios.post("https://api.imgbb.com/1/upload?key=5b4fcdb13ffc1a8120ad637767dc49e7",formData).then(res=>{
             if(res.data.data.url){
                 data.picture = res.data.data.url;
-                data.email = user.email;
-                data.name = user.displayName;
-                data.verified = user.verified;
+               
                 axios.post("http://localhost:5000/products",data).then(res => {
             console.log(res);
             refetch()
@@ -147,7 +149,7 @@ const MyProducts = () => {
               </div>
                 </th>
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    {myProduct?.productName}
+                    {myProduct?.productName.length > 50 ?myProduct?.productName.slice(0,50) + "..." : myProduct?.productName }
                 </th>
                 <td className="py-4 px-6">
                 {myProduct?.productCategory}

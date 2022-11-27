@@ -11,7 +11,7 @@ import MyProducts from '../MyProducts/MyProducts';
 const Dashboard = () => {
     const navigate = useNavigate()
     const {user,loading} = useContext(AuthContext);
-    console.log(user);
+    // console.log(user);
 
     const {data : unverifiedUsers,refetch} = useQuery({
         queryKey : ["unverifiedUsers"],

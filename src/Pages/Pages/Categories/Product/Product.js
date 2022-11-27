@@ -14,7 +14,7 @@ const Product = () => {
   const navigate = useNavigate();
     const product = useLoaderData()
     const {register , handleSubmit , reset} = useForm()
-    console.log(user);
+    // console.log(user);
     const handleBuyProducts = (booked) =>{
       booked.picture = product.picture;
       booked.productCategory = product.productCategory;
@@ -79,11 +79,11 @@ const Product = () => {
             <section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">
     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" className="lg:w-1/2 w-full  h-full object-cover object-center rounded" src={product?.picture}/>
+      <img alt="ecommerce" className="lg:w-1/2 w-full h-full lg:h-[38rem]  rounded" src={product?.picture}/>
       <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <div className='flex justify-between'>
         <h2 className="text-sm title-font text-primary tracking-widest">{product?.productCategory}</h2>
-        <h2 className="text-sm title-font text-primary tracking-widest"><small>Author : {product?.name}</small></h2>
+        <h2 className="text-sm title-font text-primary tracking-widest"><small>Sale by : {product?.name}</small></h2>
         </div>
          <small className='text-gray-400'><i>Post date : {product?.postDateInfo?.postDay} {product?.postDateInfo?.postTime} </i></small> 
          <div className=''>

@@ -35,10 +35,10 @@ const AllBuyers = () => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
                 <th scope="col" className="py-3 px-6">
-                    Email
+                    Name
                 </th>
                 <th scope="col" className="py-3 px-6">
-                    Name
+                     Email
                 </th>
                 {/* <th scope="col" className="py-3 px-6">
                     Total Products
@@ -54,10 +54,10 @@ const AllBuyers = () => {
                 allBuyers && allBuyers.map(buyer => 
                     <tr key={buyer._id} className="bg-white border-b  ">
                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
-                    {buyer?.email}
+                   {buyer?.name}
                 </th>
                 <td className="py-4 px-6">
-                {buyer?.name}
+                     {buyer?.email}
                 </td>
                 {/* <td className="py-4 px-6">
                     Products count 

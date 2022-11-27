@@ -55,7 +55,7 @@ const AuthProvider = ({children}) => {
                   currentUser.userRole = res.data.role ;
                   currentUser.verifiedUser = res.data.verified ;
              
-                  console.log( res.data);
+                //   console.log( res.data);
               }).catch(e=>{
                   console.log(e)
               

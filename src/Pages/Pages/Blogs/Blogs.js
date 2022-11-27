@@ -2,10 +2,10 @@ import React from 'react';
 
 const Blogs = () => {
     return (
-        <div class="accordion" id="accordionExample">
-  <div class="accordion-item bg-white border border-gray-200">
-    <h2 class="accordion-header mb-0" id="headingOne">
-      <button class="
+        <div className="accordion" id="accordionExample">
+  <div className="accordion-item bg-white border border-gray-200">
+    <h2 className="accordion-header mb-0" id="headingOne">
+      <button className="
         accordion-button
         relative
         flex
@@ -24,16 +24,16 @@ const Blogs = () => {
         What are the different ways to manage a state in a React application?
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+    <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne"
       data-bs-parent="#accordionExample">
-      <div class="accordion-body py-4 px-5">
+      <div className="accordion-body py-4 px-5">
       Which state management is best in React? React's useState is the best option for local state management. If you need a global state solution, the most popular ones are Redux, MobX, and the built-in Context API. Your choice will depend on the size of your project, your needs, and your engineers' expertise.
       </div>
     </div>
   </div>
-  <div class="accordion-item bg-white border border-gray-200">
-    <h2 class="accordion-header mb-0" id="headingTwo">
-      <button class="
+  <div className="accordion-item bg-white border border-gray-200">
+    <h2 className="accordion-header mb-0" id="headingTwo">
+      <button className="
         accordion-button
         collapsed
         relative
@@ -53,16 +53,16 @@ const Blogs = () => {
        How does prototypical inheritance work?
       </button>
     </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+    <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo"
       data-bs-parent="#accordionExample">
-      <div class="accordion-body py-4 px-5">
+      <div className="accordion-body py-4 px-5">
       The Prototypal Inheritance is a feature in javascript used to add methods and properties in objects. It is a method by which an object can inherit the properties and methods of another object. Traditionally, in order to get and set the [[Prototype]] of an object, we use Object. getPrototypeOf and Object.
       </div>
     </div>
   </div>
-  <div class="accordion-item bg-white border border-gray-200">
-    <h2 class="accordion-header mb-0" id="headingThree">
-      <button class="
+  <div className="accordion-item bg-white border border-gray-200">
+    <h2 className="accordion-header mb-0" id="headingThree">
+      <button className="
         accordion-button
         collapsed
         relative
@@ -82,16 +82,16 @@ const Blogs = () => {
        What is a unit test? Why should we write unit tests?
       </button>
     </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree"
       data-bs-parent="#accordionExample">
-      <div class="accordion-body py-4 px-5">
+      <div className="accordion-body py-4 px-5">
       The main objective of unit testing is to isolate written code to test and determine if it works as intended. Unit testing is an important step in the development process, because if done correctly, it can help detect early flaws in code which may be more difficult to find in later testing stages.
       </div>
     </div>
   </div>
-  <div class="accordion-item bg-white border border-gray-200">
-    <h2 class="accordion-header mb-0" id="headingThree">
-      <button class="
+  <div className="accordion-item bg-white border border-gray-200">
+    <h2 className="accordion-header mb-0" id="headingThree">
+      <button className="
         accordion-button
         collapsed
         relative
@@ -111,9 +111,9 @@ const Blogs = () => {
         React vs. Angular vs. Vue?
       </button>
     </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+    <div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree"
       data-bs-parent="#accordionExample">
-      <div class="accordion-body py-4 px-5">
+      <div className="accordion-body py-4 px-5">
       Angular vs React
 If the choice you’re making is based on Angular vs React alone, then you’ll simply need to consider the pros and cons discussed for those libraries in this post. But overall, keep in mind that both libraries can be used for mobile and web apps, while Angular is generally better for more complex apps that are enterprise-ready.
 
