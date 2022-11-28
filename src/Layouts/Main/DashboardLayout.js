@@ -92,7 +92,7 @@ const DashboardLayout = () => {
            <div>
            <button
            onClick={handleLoOut}
-           className="btn mb-3 bg-primary mt-40 lg:mt-80 text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full"><span className="mr-3"><FaArrowAltCircleLeft></FaArrowAltCircleLeft></span> {loading ?<ButtonLoader></ButtonLoader> :"LogOut" } </button>
+           className="btn mb-3 bg-primary mt-40 lg:mt-56 text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full"><span className="mr-3"><FaArrowAltCircleLeft></FaArrowAltCircleLeft></span> {loading ?<ButtonLoader></ButtonLoader> :"LogOut" } </button>
            </div>
            </div>
            
