@@ -56,13 +56,13 @@ const Cart = () => {
                 <th scope="col" className=" w-24 p-5 h-16">
                 Product Name
                 </th>
-                <th scope="col" className=" w-24 p-5 h-16">
+                <th scope="col" className=" ">
                       Category
                 </th>
-                <th scope="col" className=" w-24 p-5 h-16 ">
+                <th scope="col" className="  ">
                     Price 
                 </th>
-                <th scope="col" className=" w-24 p-5 h-16 flex justify-center items-center">
+                <th scope="col" className="  flex justify-center items-center">
                     Action
                 </th>
             </tr>
@@ -79,13 +79,13 @@ const Cart = () => {
                 <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                     {cart?.productName}
                 </th>
-                <td className=" w-24 p-5 h-16">
+                <td className=" ">
                 {cart?.productCategory}
                 </td>
-                <td className=" w-24 p-5 h-16">
+                <td className=" ">
                 {cart?.productPrice} .Tk
                 </td>
-                <td className=" w-24 p-5 h-16 flex justify-center items-center">
+                <td className=" p-5  flex justify-center items-center">
                    <Link to={`/product/${cart?.products_id}`} className='btn btn-sm btn-primary'>Book Now</Link>
                    <label
                    htmlFor="confirmation-modal"

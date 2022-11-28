@@ -24,7 +24,7 @@ const MyBooked = () => {
     //   console.log( res.data);
   }).catch(e=>{
       console.log(e)
-      // window.location.reload()
+      
       setLoading(false)
   
       

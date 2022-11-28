@@ -145,7 +145,7 @@ const SignUp = () => {
         // console.log( res.data);
     }).catch(e=>{
         console.log(e)
-        // window.location.reload(false)
+       
         
     })
        

@@ -144,7 +144,7 @@ const Product = () => {
           <label
           onClick={()=>handleReport(product._id)}
           htmlFor="confirmation-modal"
-          className="btn btn-primary rounded-full w-12 h-10 p-0 border-0 inline-flex items-center justify-center  ml-4">
+          className="btn btn-error text-2xl rounded-full w-12 h-10 p-0 border-0 inline-flex items-center justify-center  ml-4">
            <FaExclamationCircle></FaExclamationCircle>
           </label>
             </>
