@@ -9,9 +9,27 @@ import GeneralModal from '../../../../Components/GeneralModal/GeneralModal';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const MyProducts = () => {
-    const {user} = useContext(AuthContext);
+    const {user,loading,setLoading} = useContext(AuthContext);
     const [confirm , setConfirm] = useState(false)
     const [confirmId , setConfirmID] = useState("")
+
+    if(!user.userRole && !user.verifiedUser){
+        setLoading(true)
+        axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
+          // console.log(res.data);
+          user.userRole = res.data.role ;
+          user.verifiedUser = res.data.verified ;
+          // setKeepUser({userRole : res.data.role ,verifiedUser : res.data.verified})
+          setLoading(false)
+        //   console.log( res.data);
+      }).catch(e=>{
+          console.log(e)
+          setLoading(false)
+      
+          
+      })
+      }
+
   
     const {data : myProducts =[] , refetch} = useQuery({
         queryKey : ["myProducts",user?.email],
@@ -107,6 +125,9 @@ const MyProducts = () => {
       
         },[confirmId,confirm,refetch])
 
+       
+
+
     return (
         <div className='mx-5 '>
              <div className="flex justify-between items-center">
@@ -173,7 +194,7 @@ const MyProducts = () => {
                     <p className='absolute animate-pulse text-5xl -top-1 left-3 '>{myProduct?.advertisement ?<span className='bg-green-500  p-3 mask mask-circle '></span> : ""}</p>
                    {myProduct?.status === "available" ? <span
                     className='btn btn-primary w-full' ><label 
-                    htmlFor={!myProduct?.advertisement && "confirmation-modal"}
+                    htmlFor={!myProduct?.advertisement ? "confirmation-modal" : ""}
                    onClick={()=>handleAdvertize(myProduct?._id)}
                    >{myProduct?.advertisement ?"Advertisement Active" :<span className='flex'>
                    <FaChevronRight></FaChevronRight>available<FaChevronLeft></FaChevronLeft>

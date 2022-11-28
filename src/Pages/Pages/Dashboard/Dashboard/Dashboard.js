@@ -1,15 +1,19 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../../../../Components/ConfirmationModal/ConfirmationModal';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 import PageLoading from '../../../Shared/PageLoading/PageLoading';
+
 
 
 const Dashboard = () => {
     const navigate = useNavigate()
     const {user,loading , setLoading} = useContext(AuthContext);
+    const [confirm , setConfirm] = useState(false)
+    const [confirmId , setConfirmID] = useState("")
     // const [keepUser , setKeepUser] = useState({})
     // console.log(user);
 
@@ -61,24 +65,28 @@ const Dashboard = () => {
         })
     }
     const handleDelete =(id)=>{
-      setLoading(true)
-        // console.log(id);
-        const confirm = window.confirm("Are you 'Delete' this User ? remember one think if you delete this User can not undo")
-        if(confirm){
-          axios.delete(`http://localhost:5000/users/${id}`).then(res => {
-            console.log(res.data);
-            refetch()
+     setConfirmID(id)
+    }
+
+
+    useEffect(()=>{
+      // console.log(confirmId,confirm);
+      if(confirm){
+        // console.log(confirmId)
+        axios.delete(`http://localhost:5000/users/${confirmId}`).then(res => {
+            // console.log(res.data);
             if(res.data.deletedCount > 0){
+              refetch()
                 toast.success("Deleted")
-                setLoading(false)
             }
         }).catch(e =>{
             console.log(e);
         })
-        }else{
-          setLoading(false)
-        }
-    }
+        
+      }
+      
+        },[confirmId,confirm,refetch])
+
 
     if(loading){
         return <PageLoading></PageLoading>
@@ -133,7 +141,9 @@ const Dashboard = () => {
                           Verify
                         </button>
                         }
-                        <button onClick={()=>handleDelete(user._id)} className='btn btn-sm btn-error ml-2'>Delete</button>
+                        <label
+                        htmlFor="confirmation-modal"
+                        onClick={()=>handleDelete(user._id)} className='btn btn-sm btn-error ml-2'>Delete</label>
                       </td>
                     </tr>
                   ))}
@@ -141,6 +151,7 @@ const Dashboard = () => {
             </table>
           </div>
         </div>
+        <ConfirmationModal setChange={setConfirm} tittle={"Are you 'Delete' this User ?"} about={"Press yes 'Delete' this User, otherwise press 'Cancel'"}></ConfirmationModal>
         </div>}
 
         {
