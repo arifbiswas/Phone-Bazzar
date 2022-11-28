@@ -50,14 +50,18 @@ const AuthProvider = ({children}) => {
                 // console.log("setAuth State" , currentUser);
                 setLoading(false)
               
-                axios.get(`http://localhost:5000/dbUser?email=${currentUser?.email}`).then(res => {
+                axios.get(`http://localhost:5000/dbUser?email=${currentUser?.email}`,{
+                    headers : {
+                        authorization : `bearer ${localStorage.getItem("authToken")}`
+                    }
+                }).then(res => {
                   // console.log(res.data);
                   currentUser.userRole = res.data.role ;
                   currentUser.verifiedUser = res.data.verified ;
                   setLoading(false)
                 //   console.log( res.data);
               }).catch(e=>{
-                  console.log(e)
+                //   console.log(e)
                   setLoading(false)
               })
             })

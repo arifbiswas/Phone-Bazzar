@@ -19,7 +19,11 @@ const DashboardLayout = () => {
   
   if(!user.userRole && !user.verifiedUser){
     // setLoading(true)
-    axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
+    axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+      headers : {
+          authorization : `bearer ${localStorage.getItem("authToken")}`
+      }
+  }).then(res => {
       console.log(res.data);
       user.userRole = res.data.role ;
       user.verifiedUser = res.data.verified ;

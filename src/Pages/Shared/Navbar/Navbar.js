@@ -17,16 +17,11 @@ const Navbar = () => {
     navigate('/login')
     setProfileOpen(false)
     setLoading(false)
+    localStorage.removeItem("authToken")
     logOut()
   }
 
-    // const [carts , setCarts] = useState([]);
-    // useEffect(()=>{
-    //     axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
-    //         // console.log(res.data);
-    //         setCarts(res.data)
-    //     }).catch(e => console.log(e))
-    // },[user?.email])
+    
     const {data : carts, refetch} = useQuery({
       queryKey : ["cart",user?.email],
       queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{

@@ -8,6 +8,29 @@ import PageLoading from "../../../Shared/PageLoading/PageLoading";
 const MyBooked = () => {
   const { user, loading ,setLoading} = useContext(AuthContext);
   const [booked, setBooked] = useState([]);
+
+  if(!user.userRole && !user.verifiedUser){
+    setLoading(true)
+    axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+      headers : {
+          authorization : `bearer ${localStorage.getItem("authToken")}`
+      }
+  }).then(res => {
+      // console.log(res.data);
+      user.userRole = res.data.role ;
+      user.verifiedUser = res.data.verified ;
+      // setKeepUser({userRole : res.data.role ,verifiedUser : res.data.verified})
+      setLoading(false)
+    //   console.log( res.data);
+  }).catch(e=>{
+      console.log(e)
+      // window.location.reload()
+      setLoading(false)
+  
+      
+  })
+  }
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/booked?buyerEmail=${user?.email}`)
@@ -21,22 +44,7 @@ const MyBooked = () => {
     // console.log(user);
     // console.log(booked);
 
-    if(!user.userRole && !user.verifiedUser){
-      setLoading(true)
-      axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
-        // console.log(res.data);
-        user.userRole = res.data.role ;
-        user.verifiedUser = res.data.verified ;
-        // setKeepUser({userRole : res.data.role ,verifiedUser : res.data.verified})
-        setLoading(false)
-      //   console.log( res.data);
-    }).catch(e=>{
-        console.log(e)
-        setLoading(false)
-    
-        
-    })
-    }
+  
 
   if (loading) {
     return <PageLoading></PageLoading>;

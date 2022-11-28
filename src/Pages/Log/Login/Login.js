@@ -43,9 +43,9 @@ const Login = () => {
     }
     // console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
-      // console.log(res);
-      // console.log(res.data.message);
-      currentUser.alreadyHave = res?.data?.message;
+      console.log(res.data);
+      localStorage.setItem("authToken",res.data.token)
+      currentUser.alreadyHave = res?.data?.alreadyHave || false;
         reset()
         toast.success("Login successfully Done")
         setLoading(false)
@@ -81,9 +81,9 @@ const Login = () => {
     }
     // console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
-      // console.log(res);
-      // console.log(res.data.message);
-      currentUser.alreadyHave = res?.data?.message;
+      console.log(res.data)
+      localStorage.setItem("authToken",res.data.token)
+      currentUser.alreadyHave = res?.data?.alreadyHave || false;
         reset()
         toast.success("Login successfully Done")
         setLoading(false)

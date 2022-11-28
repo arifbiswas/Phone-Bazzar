@@ -81,8 +81,9 @@ const SignUp = () => {
     }
     console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
-      console.log(res);
-      if(res.data.acknowledged){
+      console.log(res.data);
+      localStorage.setItem("authToken",res.data.token)
+      if(res.data.result.acknowledged){
         axios.get(`http://localhost:5000/dbUser?email=${email?.email}`).then(res => {
         // console.log(res.data);
         user.userRole = res.data.role ;
@@ -93,7 +94,7 @@ const SignUp = () => {
     }).catch(e=>{
       setLoading(false)
         console.log(e)
-        // window.location.reload(false)
+        window.location.reload(false)
     })
     reset()
     toast.success("SignUp successfully Done")
@@ -131,14 +132,14 @@ const SignUp = () => {
     }
     // console.log(dbUser);
     axios.post("http://localhost:5000/users",dbUser).then(res => {
-      // console.log(res);
-      // console.log(res.data.message);
+      console.log(res.data);
+      localStorage.setItem("authToken",res.data.token)
+      currentUser.alreadyHave = res?.data?.alreadyHave || false;
       setLoading(true)
       axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
         // console.log(res.data);
         currentUser.userRole = res.data.role ;
         currentUser.verifiedUser = res.data.verified ;
-        currentUser.alreadyHave = res?.data?.message;
         
         setLoading(false)
         // console.log( res.data);
