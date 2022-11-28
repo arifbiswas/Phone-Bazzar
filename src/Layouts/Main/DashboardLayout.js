@@ -4,7 +4,7 @@ import {  NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../ContextApi/AuthProvider";
 
 import user1 from "../../Assets/user1.png";
-
+import verified from '../../Assets/verified1.png'
 import DashboardNavbar from "../../Pages/Shared/Navbar/DashboardNavbar";
 
 import PageLoading from "../../Pages/Shared/PageLoading/PageLoading";
@@ -43,7 +43,7 @@ const DashboardLayout = () => {
   // if(loading){
   //   return <PageLoading></PageLoading>
   // }
- 
+ console.log(user);
   return (
     <div>
       <DashboardNavbar></DashboardNavbar>
@@ -59,16 +59,23 @@ const DashboardLayout = () => {
           <ul className="menu items-center gap-5 p-4 w-80  bg-primary  text-base-content">
           {/* profile  */}
           <div className=" rounded-lg  mt-12 ">
-              <div className="flex justify-center items-center flex-col">
+              <div className="flex justify-center items-center flex-col relative">
                 <img
                   className="w-32 h-32 mb-3 rounded-full shadow-lg"
                   src={user?.photoURL ? user?.photoURL : user1 }
                   alt={user?.displayName}
                 />
+                {
+                  user.verifiedUser && <img src={verified} className="w-24 absolute -right-4 bottom-12" alt="" />
+                }
                 <h5 className="mb-1 text-xl font-medium text-gray-50 ">
                 {user?.displayName}
                 </h5>
+                <div className='text-gray-400 flex items-center'>
                 <span className="text-sm text-gray-50 ">{user?.userRole}</span>
+                  
+                   {user?.verifiedUser ?<span className='flex items-center ml-2'> <h1 className="text-white"> verified</h1></span> : "Unverified"}
+          </div>
               </div>
             </div>
           {/* profile  */}

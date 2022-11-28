@@ -43,7 +43,7 @@ const Login = () => {
     }
     // console.log(dbUser);
     axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       localStorage.setItem("authToken",res.data.token)
       currentUser.alreadyHave = res?.data?.alreadyHave || false;
         reset()
@@ -81,7 +81,7 @@ const Login = () => {
     }
     // console.log(dbUser);
     axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       localStorage.setItem("authToken",res.data.token)
       currentUser.alreadyHave = res?.data?.alreadyHave || false;
         reset()
