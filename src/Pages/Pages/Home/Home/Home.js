@@ -14,7 +14,7 @@ const Home = () => {
 
     const {data : advertisements=[] , refetch} = useQuery({
         queryKey : ['advertisements'],
-        queryFn : ()=> axios.get('http://localhost:5000/advertisement').then(res => {
+        queryFn : ()=> axios.get('https://phone-bazaar-server-arifbiswas.vercel.app/advertisement').then(res => {
           // console.log(res.data);
           return res.data;
     

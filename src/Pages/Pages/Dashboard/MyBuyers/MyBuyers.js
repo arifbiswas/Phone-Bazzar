@@ -7,7 +7,7 @@ const MyBuyers = () => {
     const {user} = useContext(AuthContext);
     const {data : myBuyers =[] } = useQuery({
         queryKey : ["myBuyers"],
-        queryFn : () => axios.get(`http://localhost:5000/booked?email=${user?.email}`).then(res =>res.data).catch(e => console.log(e))
+        queryFn : () => axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/booked?email=${user?.email}`).then(res =>res.data).catch(e => console.log(e))
     })
 
     return (

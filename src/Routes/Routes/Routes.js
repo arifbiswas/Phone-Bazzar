@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
                     {
                         path : "/categories/:name",
                         element : <PrivateRoutes><Category></Category></PrivateRoutes>,
-                        loader : ({params})=>fetch(`http://localhost:5000/categories/${params.name}`)
+                        loader : ({params})=>fetch(`https://phone-bazaar-server-arifbiswas.vercel.app/categories/${params.name}`)
                     }
                 ]
             },
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
             {
                 path : '/product/:id',
                 element : <PrivateRoutes><Product></Product></PrivateRoutes>,
-                loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
+                loader : ({params})=>fetch(`https://phone-bazaar-server-arifbiswas.vercel.app/product/${params.id}`)
             },
             {
                 path : "/cart",
@@ -104,7 +104,7 @@ export const router = createBrowserRouter([
             {
                 path : "/dashboard/myBooked/:id",
                 element : <PrivateRoutes><Payment></Payment></PrivateRoutes>,
-                loader : ({params})=>fetch(`http://localhost:5000/product/${params.id}`)
+                loader : ({params})=>fetch(`https://phone-bazaar-server-arifbiswas.vercel.app/product/${params.id}`)
             },
            
         ]

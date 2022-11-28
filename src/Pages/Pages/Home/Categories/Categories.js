@@ -8,7 +8,7 @@ const Categories = () => {
   const navigate =useNavigate()
   const {data : categories =[] , refetch} = useQuery({
     queryKey : ["categories"],
-    queryFn : ()=>fetch("http://localhost:5000/categories")
+    queryFn : ()=>fetch("https://phone-bazaar-server-arifbiswas.vercel.app/categories")
     .then(res => res.json())
     .then(data =>{
       // console.log(data)

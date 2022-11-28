@@ -80,11 +80,11 @@ const SignUp = () => {
       email,role,name
     }
     console.log(dbUser);
-    axios.post("http://localhost:5000/users",dbUser).then(res => {
+    axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
       console.log(res.data);
       localStorage.setItem("authToken",res.data.token)
       if(res.data.result.acknowledged){
-        axios.get(`http://localhost:5000/dbUser?email=${email?.email}`).then(res => {
+        axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${email?.email}`).then(res => {
         // console.log(res.data);
         user.userRole = res.data.role ;
         user.verifiedUser = res.data.verified ;
@@ -131,12 +131,12 @@ const SignUp = () => {
       
     }
     // console.log(dbUser);
-    axios.post("http://localhost:5000/users",dbUser).then(res => {
+    axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
       console.log(res.data);
       localStorage.setItem("authToken",res.data.token)
       currentUser.alreadyHave = res?.data?.alreadyHave || false;
       setLoading(true)
-      axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
+      axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${user?.email}`).then(res => {
         // console.log(res.data);
         currentUser.userRole = res.data.role ;
         currentUser.verifiedUser = res.data.verified ;

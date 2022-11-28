@@ -42,7 +42,7 @@ const Login = () => {
       email
     }
     // console.log(dbUser);
-    axios.post("http://localhost:5000/users",dbUser).then(res => {
+    axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
       console.log(res.data);
       localStorage.setItem("authToken",res.data.token)
       currentUser.alreadyHave = res?.data?.alreadyHave || false;
@@ -80,7 +80,7 @@ const Login = () => {
       
     }
     // console.log(dbUser);
-    axios.post("http://localhost:5000/users",dbUser).then(res => {
+    axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/users",dbUser).then(res => {
       console.log(res.data)
       localStorage.setItem("authToken",res.data.token)
       currentUser.alreadyHave = res?.data?.alreadyHave || false;

@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     if(!user.userRole && !user.verifiedUser){
       setLoading(true)
-      axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+      axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${user?.email}`,{
         headers : {
             authorization : `bearer ${localStorage.getItem("authToken")}`
         }
@@ -39,7 +39,7 @@ const Dashboard = () => {
     }
     const {data : unverifiedUsers,refetch} = useQuery({
         queryKey : ["unverifiedUsers"],
-        queryFn : ()=>axios.get("http://localhost:5000/unverified").then(res=>{
+        queryFn : ()=>axios.get("https://phone-bazaar-server-arifbiswas.vercel.app/unverified").then(res=>{
             // console.log(res.data);
             if(!res.data){
               navigate("/")
@@ -57,7 +57,7 @@ const Dashboard = () => {
     const handleVerified =(id)=>{
         // console.log(id);
         setLoading(true)
-        axios.patch(`http://localhost:5000/verified/${id}`).then(res => {
+        axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/verified/${id}`).then(res => {
             // console.log(res.data);
             if(res.data){
                 toast.success("Verified")
@@ -77,7 +77,7 @@ const Dashboard = () => {
       // console.log(confirmId,confirm);
       if(confirm){
         // console.log(confirmId)
-        axios.delete(`http://localhost:5000/users/${confirmId}`).then(res => {
+        axios.delete(`https://phone-bazaar-server-arifbiswas.vercel.app/users/${confirmId}`).then(res => {
             // console.log(res.data);
             if(res.data.deletedCount > 0){
               refetch()

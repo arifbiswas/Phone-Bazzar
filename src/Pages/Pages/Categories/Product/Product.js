@@ -28,7 +28,7 @@ const Product = () => {
       console.log(booked);
       setLoading(true)
 
-      axios.post("http://localhost:5000/booked",booked).then(res =>{
+      axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/booked",booked).then(res =>{
         if(res.data.acknowledged){
           setLoading(false)
           toast.success("booked Successfully")
@@ -61,7 +61,7 @@ const Product = () => {
 
       }
 
-      axios.post("http://localhost:5000/carts",wish).then(res =>{
+      axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/carts",wish).then(res =>{
         console.log(res.data);
         if(res.data.acknowledged){
           setLoading(false)
@@ -84,7 +84,7 @@ const Product = () => {
   // console.log(confirmId,confirm);
   if(confirm){
     // console.log(confirmId);
-    axios.patch(`http://localhost:5000/report/${confirmId}`).then(res => {
+    axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/report/${confirmId}`).then(res => {
       console.log(res.data);
       if(res.data.modifiedCount > 0){
         toast.success("Report Send Admin Successfully")

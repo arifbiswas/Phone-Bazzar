@@ -11,7 +11,7 @@ const AllSellers = () => {
     queryKey: ["allBuyers"],
     queryFn: () =>
       axios
-        .get("http://localhost:5000/users?seller=seller")
+        .get("https://phone-bazaar-server-arifbiswas.vercel.app/users?seller=seller")
         .then((res) => res.data)
         .catch((e) => console.log(e)),
   });
@@ -25,7 +25,7 @@ useEffect(()=>{
   // console.log(confirmId,confirm);
   if(confirm){
     // console.log(confirmId)
-    axios.delete(`http://localhost:5000/users/${confirmId}`).then(res => {
+    axios.delete(`https://phone-bazaar-server-arifbiswas.vercel.app/users/${confirmId}`).then(res => {
         // console.log(res.data);
         refetch()
         if(res.data.deletedCount > 0){

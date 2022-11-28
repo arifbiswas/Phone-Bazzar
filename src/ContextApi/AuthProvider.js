@@ -50,7 +50,7 @@ const AuthProvider = ({children}) => {
                 // console.log("setAuth State" , currentUser);
                 setLoading(false)
               
-                axios.get(`http://localhost:5000/dbUser?email=${currentUser?.email}`,{
+                axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${currentUser?.email}`,{
                     headers : {
                         authorization : `bearer ${localStorage.getItem("authToken")}`
                     }

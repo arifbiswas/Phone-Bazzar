@@ -24,7 +24,7 @@ const Navbar = () => {
     
     const {data : carts, refetch} = useQuery({
       queryKey : ["cart",user?.email],
-      queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
+      queryFn : ()=> axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/carts?email=${user?.email}`).then(res =>{
                 // console.log(res.data);
                 return res.data
             }).catch(e => console.log(e))

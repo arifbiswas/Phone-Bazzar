@@ -19,7 +19,7 @@ const CategoriesOptions = () => {
   // All categories 
   const {data : categories =[] , refetch} = useQuery({
     queryKey : ["categories"],
-    queryFn : ()=>fetch("http://localhost:5000/categories")
+    queryFn : ()=>fetch("https://phone-bazaar-server-arifbiswas.vercel.app/categories")
     .then(res => res.json())
     .then(data =>{
       // console.log(data)
@@ -45,7 +45,7 @@ const CategoriesOptions = () => {
           categoryName: categoryInfo.categoryName,
           brandLogo: data?.data?.url,
         };
-        axios.post("http://localhost:5000/categories", newCategory)
+        axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/categories", newCategory)
         setLoading(true)
           .then((res) => {
             console.log(res.data);

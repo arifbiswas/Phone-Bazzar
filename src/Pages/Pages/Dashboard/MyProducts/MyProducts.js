@@ -15,7 +15,7 @@ const MyProducts = () => {
 
     if(!user.userRole && !user.verifiedUser){
         setLoading(true)
-        axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+        axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${user?.email}`,{
             headers : {
                 authorization : `bearer ${localStorage.getItem("authToken")}`
             }
@@ -37,7 +37,7 @@ const MyProducts = () => {
   
     const {data : myProducts =[] , refetch} = useQuery({
         queryKey : ["myProducts",user?.email],
-        queryFn : ()=>fetch(`http://localhost:5000/products?email=${user?.email}`)
+        queryFn : ()=>fetch(`https://phone-bazaar-server-arifbiswas.vercel.app/products?email=${user?.email}`)
         .then(res => res.json())
         .then(data =>{
         //   console.log(data)
@@ -78,7 +78,7 @@ const MyProducts = () => {
             if(res.data.data.url){
                 data.picture = res.data.data.url;
                
-                axios.post("http://localhost:5000/products",data).then(res => {
+                axios.post("https://phone-bazaar-server-arifbiswas.vercel.app/products",data).then(res => {
             console.log(res);
             refetch()
             reset()
@@ -97,7 +97,7 @@ const MyProducts = () => {
 
   const {data : categories =[]} = useQuery({
     queryKey : ["categories"],
-    queryFn : ()=>fetch("http://localhost:5000/categories")
+    queryFn : ()=>fetch("https://phone-bazaar-server-arifbiswas.vercel.app/categories")
     .then(res => res.json())
     .then(data =>{
       // console.log(data)
@@ -115,7 +115,7 @@ const MyProducts = () => {
             advertisement : true
         }
         // console.log(confirmId)
-        axios.patch(`http://localhost:5000/advertisement/${confirmId}`,advertise).then(res =>{
+        axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/advertisement/${confirmId}`,advertise).then(res =>{
             // console.log(res.data);
             if(res.data.modifiedCount > 0){
                 refetch()

@@ -11,7 +11,7 @@ const MyBooked = () => {
 
   if(!user.userRole && !user.verifiedUser){
     setLoading(true)
-    axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+    axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${user?.email}`,{
       headers : {
           authorization : `bearer ${localStorage.getItem("authToken")}`
       }
@@ -33,7 +33,7 @@ const MyBooked = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/booked?buyerEmail=${user?.email}`)
+      .get(`https://phone-bazaar-server-arifbiswas.vercel.app/booked?buyerEmail=${user?.email}`)
       .then((res) => {
         // console.log(res.data);
         setLoading(false)

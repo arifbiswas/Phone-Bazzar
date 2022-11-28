@@ -19,7 +19,7 @@ const DashboardLayout = () => {
   
   if(!user.userRole && !user.verifiedUser){
     // setLoading(true)
-    axios.get(`http://localhost:5000/dbUser?email=${user?.email}`,{
+    axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/dbUser?email=${user?.email}`,{
       headers : {
           authorization : `bearer ${localStorage.getItem("authToken")}`
       }

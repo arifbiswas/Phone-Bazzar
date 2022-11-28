@@ -15,13 +15,13 @@ const Payment = () => {
     }
     const handlePayment =(id)=>{
         console.log(id);
-        axios.patch(`http://localhost:5000/products/${id}`,payment).then(res => {
+        axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/products/${id}`,payment).then(res => {
             console.log(res.data);
             if(res.data.modifiedCount > 0){
-                axios.patch(`http://localhost:5000/booked/${id}`,payment).then(res => {
+                axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/booked/${id}`,payment).then(res => {
             console.log(res.data);
             if(res.data.modifiedCount > 0){
-                axios.patch(`http://localhost:5000/advertisement/${id}`,advertise).then(res =>{
+                axios.patch(`https://phone-bazaar-server-arifbiswas.vercel.app/advertisement/${id}`,advertise).then(res =>{
                     // console.log(res.data);
                     if(res.data.modifiedCount > 0){
                         toast.success("Payment Successfully done")

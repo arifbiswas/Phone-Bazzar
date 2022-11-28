@@ -12,7 +12,7 @@ const Cart = () => {
     const {user, loading , setLoading} = useContext(AuthContext);
     const {data : carts, refetch} = useQuery({
         queryKey : ["cart",user?.email],
-        queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
+        queryFn : ()=> axios.get(`https://phone-bazaar-server-arifbiswas.vercel.app/carts?email=${user?.email}`).then(res =>{
                 //   console.log(res.data);
                   return res.data
               }).catch(e => {
@@ -24,7 +24,7 @@ const Cart = () => {
         const confirm = window.confirm("Are sure that 'Delete' this product from cart ?")
         // console.log(id);
         if(confirm){
-            axios.delete(`http://localhost:5000/carts/${id}`).then(res =>{
+            axios.delete(`https://phone-bazaar-server-arifbiswas.vercel.app/carts/${id}`).then(res =>{
                 if(res.data.deletedCount > 0){
                     // console.log(res.data)
                     toast.success("Delete From Cart")

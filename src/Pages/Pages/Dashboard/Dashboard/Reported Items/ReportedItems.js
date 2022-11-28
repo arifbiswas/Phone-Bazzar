@@ -10,7 +10,7 @@ const ReportedItems = () => {
 
     const {data : reportedItems=[] , refetch} = useQuery({
         queryKey : ['reportedItems'],
-        queryFn : ()=> axios.get('http://localhost:5000/report').then(res => {
+        queryFn : ()=> axios.get('https://phone-bazaar-server-arifbiswas.vercel.app/report').then(res => {
           // console.log(res.data);
           return res.data;
     
@@ -26,7 +26,7 @@ const ReportedItems = () => {
         // console.log(confirmId,confirm);
         if(confirm){
           // console.log(confirmId)
-            axios.delete(`http://localhost:5000/products/${confirmId}`).then(res => {
+            axios.delete(`https://phone-bazaar-server-arifbiswas.vercel.app/products/${confirmId}`).then(res => {
               console.log(res.data);
               if(res.data.deletedCount > 0){
                   refetch()

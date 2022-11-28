@@ -8,7 +8,7 @@ const AllBuyers = () => {
     const [confirmId , setConfirmID] = useState("")
     const {data : allBuyers =[],refetch } = useQuery({
         queryKey : ["allBuyers"],
-        queryFn : () => axios.get('http://localhost:5000/users?buyer=buyer').then(res =>res.data).catch(e => console.log(e))
+        queryFn : () => axios.get('https://phone-bazaar-server-arifbiswas.vercel.app/users?buyer=buyer').then(res =>res.data).catch(e => console.log(e))
     })
 
     const handleDelete =(id)=>{
@@ -20,7 +20,7 @@ const AllBuyers = () => {
       // console.log(confirmId,confirm);
       if(confirm){
         // console.log(confirmId)
-        axios.delete(`http://localhost:5000/users/${confirmId}`).then(res => {
+        axios.delete(`https://phone-bazaar-server-arifbiswas.vercel.app/users/${confirmId}`).then(res => {
             // console.log(res.data);
             refetch()
             if(res.data.deletedCount > 0){
