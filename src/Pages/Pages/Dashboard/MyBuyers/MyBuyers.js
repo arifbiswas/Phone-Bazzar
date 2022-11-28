@@ -19,18 +19,18 @@ const MyBuyers = () => {
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Name
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Email
                 </th>
                 
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Number
                 </th>
                 
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                  Meet Location
                 </th>
             </tr>
@@ -39,18 +39,18 @@ const MyBuyers = () => {
             {
                 myBuyers && myBuyers.map(buyer => 
                     <tr key={buyer._id} className="bg-white border-b  ">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                     
                     {buyer?.buyerName}
                 </th>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                 {buyer?.buyerEmail}
                 </td>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                     {buyer?.buyerNumber}
                 </td>
                 
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                     {buyer?.location}
                    {/* <button className='btn btn-sm btn-error'>Delete</button> */}
                 </td>

@@ -54,12 +54,11 @@ const AuthProvider = ({children}) => {
                   // console.log(res.data);
                   currentUser.userRole = res.data.role ;
                   currentUser.verifiedUser = res.data.verified ;
-             
+                  setLoading(false)
                 //   console.log( res.data);
               }).catch(e=>{
                   console.log(e)
-              
-                  
+                  setLoading(false)
               })
             })
             return () =>{

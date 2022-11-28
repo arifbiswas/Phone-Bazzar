@@ -9,13 +9,15 @@ import PageLoading from '../../Shared/PageLoading/PageLoading';
 
 const Cart = () => {
 
-    const {user, loading} = useContext(AuthContext);
+    const {user, loading , setLoading} = useContext(AuthContext);
     const {data : carts, refetch} = useQuery({
         queryKey : ["cart",user?.email],
         queryFn : ()=> axios.get(`http://localhost:5000/carts?email=${user?.email}`).then(res =>{
-                  // console.log(res.data);
+                //   console.log(res.data);
                   return res.data
-              }).catch(e => console.log(e))
+              }).catch(e => {
+                console.log(e);
+              })
       })
 
     const handleDelete = (id) =>{
@@ -48,19 +50,19 @@ const Cart = () => {
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                 Picture
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                 Product Name
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                       Category
                 </th>
-                <th scope="col" className="py-3 px-6 ">
+                <th scope="col" className=" w-24 p-5 h-16 ">
                     Price 
                 </th>
-                <th scope="col" className="py-3 px-6 flex justify-center items-center">
+                <th scope="col" className=" w-24 p-5 h-16 flex justify-center items-center">
                     Action
                 </th>
             </tr>
@@ -69,21 +71,21 @@ const Cart = () => {
             {
                 carts && carts.map(cart => 
                     <tr key={cart._id} className="bg-white border-b  ">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                 <div className="mask mask-square w-12 h-12">
                 <img src={cart?.picture} alt="Avatar Tailwind CSS Component" />
               </div>
                 </th>
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                     {cart?.productName}
                 </th>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                 {cart?.productCategory}
                 </td>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                 {cart?.productPrice} .Tk
                 </td>
-                <td className="py-4 px-6 flex justify-center items-center">
+                <td className=" w-24 p-5 h-16 flex justify-center items-center">
                    <Link to={`/product/${cart?.products_id}`} className='btn btn-sm btn-primary'>Book Now</Link>
                    <label
                    htmlFor="confirmation-modal"

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
@@ -11,7 +11,7 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const {user,loading , setLoading} = useContext(AuthContext);
     // const [keepUser , setKeepUser] = useState({})
-    // // console.log(user);
+    // console.log(user);
 
     if(!user.userRole && !user.verifiedUser){
       setLoading(true)
@@ -29,7 +29,6 @@ const Dashboard = () => {
         
     })
     }
-   
     const {data : unverifiedUsers,refetch} = useQuery({
         queryKey : ["unverifiedUsers"],
         queryFn : ()=>axios.get("http://localhost:5000/unverified").then(res=>{
@@ -45,26 +44,24 @@ const Dashboard = () => {
         })
     })
    
-    // console.log(keepUser);
-
-    if(loading){
-      return <PageLoading></PageLoading>
-    }
+    
     
     const handleVerified =(id)=>{
         // console.log(id);
+        setLoading(true)
         axios.patch(`http://localhost:5000/verified/${id}`).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if(res.data){
                 toast.success("Verified")
                 refetch()
+                setLoading(false)
             }
         }).catch(e =>{
             console.log(e);
         })
     }
     const handleDelete =(id)=>{
-
+      setLoading(true)
         // console.log(id);
         const confirm = window.confirm("Are you 'Delete' this User ? remember one think if you delete this User can not undo")
         if(confirm){
@@ -73,16 +70,22 @@ const Dashboard = () => {
             refetch()
             if(res.data.deletedCount > 0){
                 toast.success("Deleted")
+                setLoading(false)
             }
         }).catch(e =>{
             console.log(e);
         })
+        }else{
+          setLoading(false)
         }
     }
 
     if(loading){
         return <PageLoading></PageLoading>
     }
+
+    // console.log(keepUser);
+
     return (
         <div className="">
             {
@@ -95,17 +98,17 @@ const Dashboard = () => {
               <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
                 <tr>
                   
-                  <th scope="col" className="py-3 px-6">
+                  <th scope="col" className="w-24 p-5 h-16 ">
                     User Name
                   </th>
                
-                  <th scope="col" className="py-3 px-6">
+                  <th scope="col" className="w-24 p-5 h-16 ">
                     User Email
                   </th>
-                  <th scope="col" className="py-3 px-6">
+                  <th scope="col" className="w-24 p-5 h-16 ">
                     User Role
                   </th>
-                  <th scope="col" className="py-3 px-6">
+                  <th scope="col" className="w-24 p-5 h-16 ">
                     Action
                   </th>
                 </tr>
@@ -116,16 +119,15 @@ const Dashboard = () => {
                     <tr key={user._id} className="bg-white border-b  ">
                       <th
                         scope="row"
-                        className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap "
+                        className="w-24 p-5 h-16  font-medium text-gray-900 whitespace-nowrap "
                       >
                         {user?.name}
                       </th>
-                      {/* <td className="py-4 px-6"> {user?.name}</td> */}
-                      <td className="py-4 px-6"> {user?.email}</td>
-                      <td className="py-4 px-6"> {user?.role}</td>
+                      <td className="w-24 p-5 h-16 "> {user?.email}</td>
+                      <td className="w-24 p-5 h-16 "> {user?.role}</td>
                     
                      
-                      <td className="flex">
+                      <td className="flex w-24 p-5 h-16 ">
                         {
                           user?.verified ? "Verified" :<button onClick={()=>handleVerified(user._id)} className="btn btn-sm btn-primary">
                           Verify

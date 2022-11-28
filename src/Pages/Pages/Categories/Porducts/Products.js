@@ -18,6 +18,7 @@ const Products = ({product}) => {
         <div className="card-body flex-1">
           <h2 className="card-title text-primary">{product?.productName}</h2>
           <div className='text-gray-400 flex items-center'> {product?.verified ?<div className='flex items-center'> <h1>Post by verified user</h1> <img src={verified} className="w-12" alt="" /></div> : "Unverified"}
+          <span>{product?.advertisement && "advertised"} <span className={product?.advertisement && "animate-pulse bg-green-600 p-1 mask mask-circle"}>{product?.advertisement && "."}</span> </span>
           </div>
           <p className="text-sm text-gray-500 ">{product?.name} 
           {/* badge */}

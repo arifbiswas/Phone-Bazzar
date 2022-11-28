@@ -22,7 +22,7 @@ const Advertisement = ({advertisements}) => {
         account with admin
       </p>
       <div>
-          <ImageGallery showBullets thumbnailPosition="left" autoPlay showIndex  items={images
+          <ImageGallery showBullets  autoPlay showIndex  items={images
           }>
           </ImageGallery>
           

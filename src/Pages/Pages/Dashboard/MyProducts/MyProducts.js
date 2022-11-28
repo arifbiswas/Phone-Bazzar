@@ -3,13 +3,16 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ConfirmationModal from '../../../../Components/ConfirmationModal/ConfirmationModal';
 import GeneralModal from '../../../../Components/GeneralModal/GeneralModal';
 import { AuthContext } from '../../../../ContextApi/AuthProvider';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext);
-    // const [yes , setYes] = useState(false)
+    const [confirm , setConfirm] = useState(false)
+    const [confirmId , setConfirmID] = useState("")
+  
     const {data : myProducts =[] , refetch} = useQuery({
         queryKey : ["myProducts",user?.email],
         queryFn : ()=>fetch(`http://localhost:5000/products?email=${user?.email}`)
@@ -79,25 +82,30 @@ const MyProducts = () => {
       return data
     })
 })
-    // console.log(yes);
-    
+   
     const handleAdvertize =(id)=>{
-    //    console.log(id);
-    const advertise = {
-        advertisement : true
+        setConfirmID(id)
     }
-       const confirm = window.confirm("Are you run advertisement")
-       if(confirm){
-        axios.patch(`http://localhost:5000/advertisement/${id}`,advertise).then(res =>{
+    useEffect(()=>{
+      // console.log(confirmId,confirm);
+      if(confirm){
+        const advertise = {
+            advertisement : true
+        }
+        // console.log(confirmId)
+        axios.patch(`http://localhost:5000/advertisement/${confirmId}`,advertise).then(res =>{
             // console.log(res.data);
             if(res.data.modifiedCount > 0){
+                refetch()
                 toast.success("Advertise is Active")
             }
         }).catch(e => {
             console.log(e);
         })
-       }
-    }
+        
+      }
+      
+        },[confirmId,confirm,refetch])
 
     return (
         <div className='mx-5 '>
@@ -118,23 +126,23 @@ const MyProducts = () => {
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
             <tr>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                 Picture
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                 Product Name
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                       Category
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Price 
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Post Day
                 </th>
                 
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className=" w-24 p-5 h-16">
                     Action
                 </th>
             </tr>
@@ -143,31 +151,33 @@ const MyProducts = () => {
             {
                 myProducts && myProducts.map(myProduct => 
                     <tr key={myProduct._id} className="bg-white border-b  ">
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                 <div className="mask mask-square w-12 h-12">
                 <img src={myProduct?.picture} alt="Avatar Tailwind CSS Component" />
               </div>
                 </th>
-                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap ">
+                <th scope="row" className=" w-24 p-5 h-16 font-medium text-gray-900 whitespace-nowrap ">
                     {myProduct?.productName.length > 50 ?myProduct?.productName.slice(0,50) + "..." : myProduct?.productName }
                 </th>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                 {myProduct?.productCategory}
                 </td>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                 {myProduct?.productPrice} .Tk
                 </td>
-                <td className="py-4 px-6">
+                <td className=" w-24 p-5 h-16">
                     {myProduct?.postDateInfo?.postDay}
                 </td>
                 
-                <td className="py-4 px-6 relative">
+                <td className=" w-24 p-5 h-16 relative">
                     <p className='absolute animate-pulse text-5xl -top-1 left-3 '>{myProduct?.advertisement ?<span className='bg-green-500  p-3 mask mask-circle '></span> : ""}</p>
                    {myProduct?.status === "available" ? <span
-                    className='btn btn-primary w-full' ><button
-                   disabled={myProduct?.advertisement}
+                    className='btn btn-primary w-full' ><label 
+                    htmlFor={!myProduct?.advertisement && "confirmation-modal"}
                    onClick={()=>handleAdvertize(myProduct?._id)}
-                   >{myProduct?.advertisement ?"Advertisement Active" :"Available"}</button></span> : <button className='btn btn-secondary w-full' disabled>Sold</button>
+                   >{myProduct?.advertisement ?"Advertisement Active" :<span className='flex'>
+                   <FaChevronRight></FaChevronRight>available<FaChevronLeft></FaChevronLeft>
+                   </span> }</label></span> : <button className='btn btn-secondary w-full' disabled>Sold</button>
                    
                    }
                 </td>
@@ -199,7 +209,7 @@ const MyProducts = () => {
       description={{label : "Description ", register : "description",placeholder : "description...."}}
       imageFiled={{label : "Products Picture", register : "picture"}}
       ></GeneralModal> }
-       
+       <ConfirmationModal setChange={setConfirm} tittle={"Are you run advertisement"} about={"Press  'Yes' for advertise this product, otherwise press 'Cancel'"}></ConfirmationModal>
         </div>
     );
 };

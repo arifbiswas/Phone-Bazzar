@@ -22,6 +22,7 @@ import PrivateRoutes from "../Private/PrivateRoutes/PrivateRoutes";
 
 import Payment from "../../Pages/Pages/Categories/Product/Payment";
 import Blogs from "../../Pages/Pages/Blogs/Blogs";
+import ReportedItems from "../../Pages/Pages/Dashboard/Dashboard/Reported Items/ReportedItems";
 
 
 export const router = createBrowserRouter([
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
             {
                 path : "/dashboard/myProducts",
                 element : <PrivateRoutes><MyProducts></MyProducts></PrivateRoutes>
+            },
+            {
+                path : "/dashboard/reportedItems",
+                element : <PrivateRoutes><ReportedItems></ReportedItems></PrivateRoutes>
             },
             {
                 path : "/dashboard/myBuyers",

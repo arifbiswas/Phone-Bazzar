@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {  useLoaderData, useNavigate } from 'react-router-dom';
@@ -7,10 +7,14 @@ import { AuthContext } from '../../../../ContextApi/AuthProvider';
 import PageLoading from '../../../Shared/PageLoading/PageLoading';
 import BookedModal from './BookedModal';
 import verified from '../../../../Assets/verified1.png'
+import { FaExclamationCircle } from 'react-icons/fa';
+import ConfirmationModal from '../../../../Components/ConfirmationModal/ConfirmationModal';
 
 
 const Product = () => {
   const {user ,loading ,setLoading} = useContext(AuthContext);
+  const [confirm , setConfirm] = useState(false)
+  const [confirmId , setConfirmID] = useState("")
   const navigate = useNavigate();
     const product = useLoaderData()
     const {register , handleSubmit , reset} = useForm()
@@ -58,17 +62,37 @@ const Product = () => {
       }
 
       axios.post("http://localhost:5000/carts",wish).then(res =>{
+        console.log(res.data);
         if(res.data.acknowledged){
           setLoading(false)
           toast.success("Add Wishlist")
-          
+        }
+        if(res.data.message){
+          toast.success(res.data.message)
+          setLoading(false)
         }
         
       }).catch(e =>{
         console.log(e);
       })
     }
+    const handleReport =(id)=>{
+      setConfirmID(id)
+     }
 
+    useEffect(()=>{
+  // console.log(confirmId,confirm);
+  if(confirm){
+    // console.log(confirmId);
+    axios.patch(`http://localhost:5000/report/${confirmId}`).then(res => {
+      console.log(res.data);
+      if(res.data.modifiedCount > 0){
+        toast.success("Report Send Admin Successfully")
+      }
+    }).catch(e => {console.log(e);})
+  }
+  
+    },[confirmId,confirm])
 
     if(loading){
       return <PageLoading></PageLoading>
@@ -113,10 +137,16 @@ const Product = () => {
           <button
           onClick={()=>handleWishList(product)}
           className="btn btn-primary rounded-full w-12 h-10 p-0 border-0 inline-flex items-center justify-center  ml-4">
-            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
+            <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
               <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
             </svg>
           </button>
+          <label
+          onClick={()=>handleReport(product._id)}
+          htmlFor="confirmation-modal"
+          className="btn btn-primary rounded-full w-12 h-10 p-0 border-0 inline-flex items-center justify-center  ml-4">
+           <FaExclamationCircle></FaExclamationCircle>
+          </label>
             </>
           }
         </div>
@@ -131,6 +161,7 @@ const Product = () => {
   user={user}
   ></BookedModal>
 </section>
+<ConfirmationModal setChange={setConfirm} tittle={"Report to admin"} about={"Have any issue in this products please inform admin and press yes,Have no issue but you press yes, you account should be deleted"}></ConfirmationModal>
         </div>
     );
 };

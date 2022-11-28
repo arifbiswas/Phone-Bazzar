@@ -1,6 +1,10 @@
 import React from 'react';
 
-const ConfirmationModal = ({about, tittle,handleAdd}) => {
+const ConfirmationModal = ({about, tittle,setChange}) => {
+  const handleAdd =(confirm)=>{
+    // console.log(confirm);
+    setChange(confirm)
+  }
     return (
         <div>
             {/* The button to open modal */}
@@ -14,16 +18,17 @@ const ConfirmationModal = ({about, tittle,handleAdd}) => {
     <p className="py-4">{about}</p>
     <div className="modal-action justify-between">
       <label 
-      
+        onClick={()=>handleAdd(false)}
         htmlFor="confirmation-modal"
    className="btn btn-success text-white">
     Cancel
    </label>
-      <button 
+      <label 
     onClick={()=>handleAdd(true)}
+    htmlFor="confirmation-modal"
        className="btn btn-error">
         Yes
-       </button>
+       </label>
     </div>
   </div>
 </div>

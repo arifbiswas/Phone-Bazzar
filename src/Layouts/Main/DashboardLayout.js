@@ -10,17 +10,38 @@ import DashboardNavbar from "../../Pages/Shared/Navbar/DashboardNavbar";
 import PageLoading from "../../Pages/Shared/PageLoading/PageLoading";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import ButtonLoader from "../../Components/ButtonLoader/ButtonLoader";
+import axios from "axios";
 
 const DashboardLayout = () => {
-  const {user , loading ,logOut} = useContext(AuthContext);
-  if(loading){
-    return <PageLoading></PageLoading>
+  const {user , loading ,logOut ,setLoading} = useContext(AuthContext);
+
+
+  
+  // if(!user.userRole && !user.verifiedUser){
+  //   // setLoading(true)
+  //   axios.get(`http://localhost:5000/dbUser?email=${user?.email}`).then(res => {
+  //     // console.log(res.data);
+  //     user.userRole = res.data.role ;
+  //     user.verifiedUser = res.data.verified ;
+  //     setLoading(false)
+  // }).catch(e=>{
+  //     console.log(e)
+  //     setLoading(false)
+  
+      
+  // })
+  // }
+
+  const handleLoOut =()=>{
+   
+    logOut()
+   
   }
 
-  // console.log(userRole);
-  const handleLoOut =()=>{
-    logOut()
-  }
+  // if(loading){
+  //   return <PageLoading></PageLoading>
+  // }
+ 
   return (
     <div>
       <DashboardNavbar></DashboardNavbar>
@@ -65,6 +86,9 @@ const DashboardLayout = () => {
             </li>
             <li>
               <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/allBuyers">All Buyers</NavLink>
+            </li>
+            <li>
+              <NavLink className={({isActive})=>isActive ?"mb-3 bg-white text-gray-600 font-bold   outline w-full hover:outline-white"  :"mb-3 bg-primary  text-gray-50 outline outline-white font-bold hover:bg-white hover:text-gray-600 w-full" } to="/dashboard/reportedItems">Reported Items</NavLink>
             </li>
               </>
             }

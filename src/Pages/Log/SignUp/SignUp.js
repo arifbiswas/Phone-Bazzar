@@ -93,7 +93,7 @@ const SignUp = () => {
     }).catch(e=>{
       setLoading(false)
         console.log(e)
-        window.location.reload(false)
+        // window.location.reload(false)
     })
     reset()
     toast.success("SignUp successfully Done")
@@ -144,7 +144,7 @@ const SignUp = () => {
         // console.log( res.data);
     }).catch(e=>{
         console.log(e)
-        window.location.reload(false)
+        // window.location.reload(false)
         
     })
        
